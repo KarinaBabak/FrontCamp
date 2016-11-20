@@ -66,6 +66,6 @@ class Render {
         let source = document.getElementById(sourceID);
         let name = source.getElementsByTagName('span')[0].innerHTML;
            
-        document.getElementById('titleSource').innerHTML = name;          
+        document.getElementById('titleSource').innerHTML = "News from "+name;          
     };  
 }

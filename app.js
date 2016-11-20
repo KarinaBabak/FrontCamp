@@ -7,7 +7,7 @@ var article, apiWrapper, render;
 function init() {
     apiWrapper = new ApiWrapper();
     render = new Render(this);    
-    article = new Article(apiWrapper);
+    //article = new Article(apiWrapper);
     
     apiWrapper.getSources().then((data)=>{
         render.renderMenu(data);
