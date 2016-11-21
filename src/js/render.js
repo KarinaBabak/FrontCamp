@@ -5,7 +5,7 @@ class Render {
     }
 
     renderMenu(categoriesList) {
-         var categories = [];
+         var categories = {};
 
                 for(let source of categoriesList) {
                     if(typeof categories[source.category] == "undefined") { 
@@ -66,6 +66,6 @@ class Render {
         let source = document.getElementById(sourceID);
         let name = source.getElementsByTagName('span')[0].innerHTML;
            
-        document.getElementById('titleSource').innerHTML = "News from "+name;          
+        document.getElementById('titleSource').innerHTML = "News from " + name;          
     };  
 }

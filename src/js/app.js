@@ -41,7 +41,3 @@ document.addEventListener('click', function(e){
 }, false);
 
 };
-
-function log(mess){
-    console.log(mess);
-}

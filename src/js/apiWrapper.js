@@ -16,13 +16,10 @@ class ApiWrapper {
     };
 
     getSources() {
-        var sources;
         return this.getRequest('sources')
             .then(data => {      
-                sources = data.sources; 
-                return sources;  
-            })
-            .catch(error => console.log(error));                   
+                return data.sources; 
+            });         
     };
 }
 

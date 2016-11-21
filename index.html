@@ -4,24 +4,20 @@
     <meta charset="UTF-8">
     <title>News</title>
     <link rel="stylesheet" href="src/style/app.css">
-    <script src="src/js/common/api.config.js"></script>
-    <script src="src/js/article/article.js"></script>
-    <script src="src/js/apiWrapper.js"></script>
-    <script src="src/js/render.js"></script>
-    <script src="app.js"></script>
+    <script src="node_modules/whatwg-fetch/fetch.js"></script>
+    <script src="node_modules/babel-polyfill/dist/polyfill.js"></script>
 </head>
 <body>
-    <div class="footer"></div>
     <div class="dropdown">      
-        <ul id="categoryList">
-        </ul>
-
+        <ul id="categoryList"></ul>
         <h3 id="titleSource"></h3>
-
-        <div id="articles">
-            
-        </div>
+        <div id="articles"/>
   </div>
 </div>
+    <script src="lib/js/common/api.config.js"></script>
+    <script src="lib/js/article/article.js"></script>
+    <script src="lib/js/apiWrapper.js"></script>
+    <script src="lib/js/render.js"></script>
+    <script src="lib/js/app.js"></script>
 </body>
 </html>
