@@ -4,7 +4,6 @@ init();
 var article, apiWrapper, render;
 
 function init() {
-<<<<<<< HEAD:src/js/app.js
     newsServoce = new NewsService();
     render = new Render();    
     //article = new Article(apiWrapper);
@@ -13,7 +12,7 @@ function init() {
     //     .then(groupByHeading)
     //     .then((headings)=>{
     //     render.renderMenu(headings);
-=======
+
     apiWrapper = new ApiWrapper();
     render = new Render();    
     //article = new Article(apiWrapper);
@@ -22,7 +21,6 @@ function init() {
         .then(groupByHeading)
         .then((headings)=>{
         render.renderMenu(headings);
->>>>>>> 92a141bbbe269cc93c880c5e10b952cc15b21e76:src/js/app.js
 
     //     apiWrapper.getArticles().then((data2)=>{
     //         render.renderArticle(data2);
@@ -60,8 +58,4 @@ document.addEventListener('click', function(e){
     }
 }, false);
 
-<<<<<<< HEAD:src/js/app.js
-})();
-=======
-};
->>>>>>> 92a141bbbe269cc93c880c5e10b952cc15b21e76:src/js/app.js
+
