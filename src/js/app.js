@@ -6,11 +6,13 @@ var article, apiWrapper, render;
 
 function init() {
     apiWrapper = new ApiWrapper();
-    render = new Render(this);    
+    render = new Render();    
     //article = new Article(apiWrapper);
     
-    apiWrapper.getSources().then((data)=>{
-        render.renderMenu(data);
+    apiWrapper.getSources()
+        .then(groupByHeading)
+        .then((headings)=>{
+        render.renderMenu(headings);
 
         apiWrapper.getArticles().then((data2)=>{
             render.renderArticle(data2);
@@ -20,6 +22,10 @@ function init() {
         });    
         
     });
+}
+
+function groupByHeading(sources) {
+    return [ { heading: 'BBC', sources: sources }];
 }
 
 
