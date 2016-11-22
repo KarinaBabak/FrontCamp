@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="src/style/app.css">
     <script src="node_modules/whatwg-fetch/fetch.js"></script>
     <script src="node_modules/babel-polyfill/dist/polyfill.js"></script>
+    <script src="lib/js/extensions/group.js"></script>
 </head>
 <body>
     <div class="dropdown">      
@@ -14,10 +15,10 @@
         <div id="articles"/>
   </div>
 </div>
-    <script src="lib/js/common/api.config.js"></script>
-    <script src="lib/js/article/article.js"></script>
-    <script src="lib/js/apiWrapper.js"></script>
-    <script src="lib/js/render.js"></script>
+    <script src="lib/js/services/news.service.js"></script>
+    <script src="lib/js/models/article.js"></script>
+    <script src="lib/js/models/source.js"></script>
+    <script src="lib/js/models/sourceHeading.js"></script>
     <script src="lib/js/app.js"></script>
 </body>
 </html>
