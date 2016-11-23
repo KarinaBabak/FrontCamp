@@ -8,17 +8,23 @@
     <script src="node_modules/babel-polyfill/dist/polyfill.js"></script>
     <script src="lib/js/extensions/group.js"></script>
 </head>
-<body>
-    <div class="dropdown">      
-        <ul id="categoryList"></ul>
-        <h3 id="titleSource"></h3>
-        <div id="articles"/>
+<body>    
+  <div>
+      <button id="news">Load news</button>
+      <div id="content">
+          <div class="dropdown">      
+            <ul id="categoryList"></ul>
+            <h3 id="titleSource"></h3>
+            <div id="articles"></div>
+        </div>
+    </div>
   </div>
 </div>
     <script src="lib/js/services/news.service.js"></script>
     <script src="lib/js/models/article.js"></script>
     <script src="lib/js/models/source.js"></script>
     <script src="lib/js/models/sourceHeading.js"></script>
+    <script src="lib/js/news.js"></script>
     <script src="lib/js/app.js"></script>
 </body>
 </html>

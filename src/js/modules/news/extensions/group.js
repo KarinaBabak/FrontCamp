@@ -1,4 +1,4 @@
-(function() {
+export function defineGroup() {
     Object.defineProperty(Array.prototype, 'group', {
       enumerable: false,
         value: function (key) {
@@ -10,4 +10,4 @@
           return Object.keys(map).map(k => ({key: k, value: map[k]}));
         }
     });
-})();
+}

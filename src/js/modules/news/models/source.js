@@ -1,4 +1,4 @@
-class Source {
+export default class Source {
     constructor(id, name, description, category, urlToLogo) {
         this.id = id;
         this.name = name;

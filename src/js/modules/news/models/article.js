@@ -1,4 +1,4 @@
-class Article {
+export default class Article {
     constructor(title, description, url, urlToImage, publishedAt) {
         this.title = title;
         this.description = description;
