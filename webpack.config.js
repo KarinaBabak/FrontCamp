@@ -1,16 +1,29 @@
 'use strict';
 
 module.exports = {
-    entry: "./src/js/app",
+    entry: `${__dirname}/src/js/app.js`,
     output: {
-        path: "./dist",
+        path: `${__dirname}/dist`,
         filename: "build.js"
     },
+        watch: true,
+    watchOptions: {
+        aggregateTimeout: 300
+    },
+    cache: true,
+
+    
 
     module: {
-        loaders: [{
-            test: /\.jsx$/,
-            loader: 'babel'
-        }]
+        loaders: [
+            {
+                test: /\.js$/,
+                loader: 'babel',
+                query: {
+                    "presets": ["es2015"],
+                    "plugins": []
+                }
+            }
+        ]
     }
-};
+}

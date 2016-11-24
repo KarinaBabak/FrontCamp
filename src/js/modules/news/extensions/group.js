@@ -10,4 +10,4 @@ export function defineGroup() {
           return Object.keys(map).map(k => ({key: k, value: map[k]}));
         }
     });
-}
+};

@@ -1,10 +1,12 @@
-import newsLoad from './src/js/modules/news/news'; 
-
-window.onload = () => {
-    document.querySelectorAll('#news').addEventListener('click', (e) => {
-        
-        newsLoad();
-    });       
+(function() {
+    window.onload = () => {
+    document.getElementById('news').onclick = function() {
+        require.ensure(['./modules/news/news']), function(require) {
+            let News = require('./modules/news/news');
+            // let newsComponent = new News(document.body);   
+            // newsComponent.load();
+        }
+    }
 };
-
+})();
 
