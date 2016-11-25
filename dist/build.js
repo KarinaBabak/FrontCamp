@@ -44,19 +44,20 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
+	//import News from './modules/news/news'
 	'use strict';
+	//(function() {
 
-	(function () {
-	    window.onload = function () {
-	        document.getElementById('news').onclick = function () {
-	            __webpack_require__(1).ensure(['./modules/news/news']), function (require) {
-	                var News = require('./modules/news/news');
-	                // let newsComponent = new News(document.body);   
-	                // newsComponent.load();
-	            };
+	window.onload = function () {
+	    document.getElementById('news').onclick = function () {
+	        __webpack_require__(1).ensure(['./modules/news/news']), function (require) {
+	            var news = require('./modules/news/news');
+	            // let newsComponent = new News(document.body);   
+	            // newsComponent.load();
 	        };
 	    };
-	})();
+	};
+	//})();
 
 /***/ },
 /* 1 */
@@ -65,18 +66,18 @@
 	var map = {
 		"./modules/news/extensions/group": 2,
 		"./modules/news/extensions/group.js": 2,
-		"./modules/news/models/article": 4,
-		"./modules/news/models/article.js": 4,
-		"./modules/news/models/source": 5,
-		"./modules/news/models/source.js": 5,
-		"./modules/news/models/sourceHeading": 6,
-		"./modules/news/models/sourceHeading.js": 6,
-		"./modules/news/news": 7,
-		"./modules/news/news.js": 7,
-		"./modules/news/newsContent": 9,
-		"./modules/news/newsContent.js": 9,
-		"./modules/news/services/news.service": 8,
-		"./modules/news/services/news.service.js": 8
+		"./modules/news/models/article": 3,
+		"./modules/news/models/article.js": 3,
+		"./modules/news/models/source": 4,
+		"./modules/news/models/source.js": 4,
+		"./modules/news/models/sourceHeading": 5,
+		"./modules/news/models/sourceHeading.js": 5,
+		"./modules/news/news": 6,
+		"./modules/news/news.js": 6,
+		"./modules/news/newsContent": 8,
+		"./modules/news/newsContent.js": 8,
+		"./modules/news/services/news.service": 7,
+		"./modules/news/services/news.service.js": 7
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -121,8 +122,7 @@
 	};
 
 /***/ },
-/* 3 */,
-/* 4 */
+/* 3 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -146,7 +146,7 @@
 	exports.default = Article;
 
 /***/ },
-/* 5 */
+/* 4 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -171,7 +171,7 @@
 	;
 
 /***/ },
-/* 6 */
+/* 5 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -193,7 +193,7 @@
 	;
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -206,23 +206,23 @@
 
 	var _group = __webpack_require__(2);
 
-	var _news = __webpack_require__(8);
+	var _news = __webpack_require__(7);
 
 	var _news2 = _interopRequireDefault(_news);
 
-	var _article = __webpack_require__(4);
+	var _article = __webpack_require__(3);
 
 	var _article2 = _interopRequireDefault(_article);
 
-	var _source = __webpack_require__(5);
+	var _source = __webpack_require__(4);
 
 	var _source2 = _interopRequireDefault(_source);
 
-	var _sourceHeading = __webpack_require__(6);
+	var _sourceHeading = __webpack_require__(5);
 
 	var _sourceHeading2 = _interopRequireDefault(_sourceHeading);
 
-	var _newsContent = __webpack_require__(9);
+	var _newsContent = __webpack_require__(8);
 
 	var _newsContent2 = _interopRequireDefault(_newsContent);
 
@@ -349,7 +349,7 @@
 	exports.default = News;
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -360,11 +360,11 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _article = __webpack_require__(4);
+	var _article = __webpack_require__(3);
 
 	var _article2 = _interopRequireDefault(_article);
 
-	var _source = __webpack_require__(5);
+	var _source = __webpack_require__(4);
 
 	var _source2 = _interopRequireDefault(_source);
 
@@ -415,7 +415,7 @@
 	exports.default = NewsService;
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -423,7 +423,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.default = "        \n    <link rel=\"stylesheet\" href=\"src/js/modules/news/less/news.css\"></link>\n        <div id=\"content\">\n            <div class=\"dropdown\">      \n                <ul id=\"categoryList\"></ul>\n                <h3 id=\"titleSource\"></h3>\n                <div id=\"articles\"></div>\n            </div>\n        </div>";
+	exports.default = "        \n\n        <div id=\"content\">\n            <div class=\"dropdown\">      \n                <ul id=\"categoryList\"></ul>\n                <h3 id=\"titleSource\"></h3>\n                <div id=\"articles\"></div>\n            </div>\n        </div>";
 
 /***/ }
 /******/ ]);

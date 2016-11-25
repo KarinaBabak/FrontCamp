@@ -1,3 +1,5 @@
+'use strict';
+
 import {defineGroup} from './extensions/group';
 import NewsService from './services/news.service';
 import Article from './models/article';
