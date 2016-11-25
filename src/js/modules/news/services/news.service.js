@@ -1,3 +1,5 @@
+'use strict';
+
 import Article from '../models/article';
 import Source from '../models/source';
 

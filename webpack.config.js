@@ -1,27 +1,33 @@
 'use strict';
 
 module.exports = {
-    entry: `${__dirname}/src/js/app.js`,
+    entry: `${__dirname}/src/js/app`,
+
     output: {
         path: `${__dirname}/dist`,
         filename: "build.js"
     },
-        watch: true,
+
+    resolve: {
+        modulesDirectories: ['node_modules']
+    },
+
+    watch: true,
     watchOptions: {
         aggregateTimeout: 300
     },
-    cache: true,
 
-    
+
 
     module: {
         loaders: [
             {
                 test: /\.js$/,
                 loader: 'babel',
+                exclude: /(node_modules|bower_components)/,
                 query: {
                     "presets": ["es2015"],
-                    "plugins": []
+                    "plugins": ["add-module-exports"]
                 }
             }
         ]
