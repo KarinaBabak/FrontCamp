@@ -1,5 +1,5 @@
 export default `        
-    <link rel="stylesheet" href="src/js/modules/news/less/news.css"></link>
+
         <div id="content">
             <div class="dropdown">      
                 <ul id="categoryList"></ul>

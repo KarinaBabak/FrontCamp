@@ -6,13 +6,17 @@ module.exports = {
         path: `${__dirname}/dist`,
         filename: "build.js"
     },
-        watch: true,
+
+    resolve: {
+        modulesDirectories: ['node_modules']
+    },
+
+    watch: true,
     watchOptions: {
         aggregateTimeout: 300
     },
-    cache: true,
 
-    
+
 
     module: {
         loaders: [
