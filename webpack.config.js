@@ -1,7 +1,8 @@
 'use strict';
 
 module.exports = {
-    entry: `${__dirname}/src/js/app.js`,
+    entry: `${__dirname}/src/js/app`,
+
     output: {
         path: `${__dirname}/dist`,
         filename: "build.js"
@@ -23,9 +24,10 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel',
+                exclude: /(node_modules|bower_components)/,
                 query: {
                     "presets": ["es2015"],
-                    "plugins": []
+                    "plugins": ["add-module-exports"]
                 }
             }
         ]

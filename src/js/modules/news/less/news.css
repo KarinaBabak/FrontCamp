@@ -1,0 +1,111 @@
+@import "variables.less";
+
+*{
+    margin:0;
+    padding:0;
+    outline:none !important;
+}
+body{
+    margin:0;
+    padding:0;
+    font-family:"PT Sans",Helvetica,Arial,sans-serif;
+    padding: 30px 40px;
+}
+
+#categoryList{
+    width: 100%;
+    display: table;
+    background-color: #2441a5;
+    border-radius: 5px;
+    color: #FFF;
+    box-shadow: 2px 2px 6px rgba(0,0,0, 0.4);
+}
+#categoryList .category{
+    list-style-type: none;
+    text-align: center;
+    text-transform: capitalize;
+    display: table-cell;
+    padding: 10px 0;
+    cursor: pointer;
+    border-right: 1px solid rgba(255,255,255,0.2);
+}
+#categoryList .category:hover ul{
+    display: block;
+}
+
+#categoryList .category ul{
+    display: none;
+    position: absolute;
+    background-color: #2441a5;
+    text-align: left;
+    margin: 7px 0 0 0;
+    font-size: 14px;
+    padding: 10px 0;
+    overflow-y: auto;
+    max-height: 360px;
+}
+#categoryList .category ul li{
+    display: block;
+    padding: 4px 20px;
+}
+#categoryList .category ul li:hover{
+    background-color: rgba(255,255,255,0.2);
+}
+#categoryList .category ul li img{
+    width: 18px;
+    margin: -3px 18px 0 0;
+    vertical-align: middle;
+    background-color: #fff;
+}
+
+
+
+#categoryList .category ul::-webkit-scrollbar {
+    width: 6px;
+}
+ 
+#categoryList .category ul::-webkit-scrollbar-track {
+    background-color: rgba(255,255,255,0.2);
+}
+ 
+#categoryList .category ul::-webkit-scrollbar-thumb {
+    border-radius: 10px; 
+    background-color: rgba(255,255,255,0.4);
+}
+
+.article{
+    min-width: 150px;
+    width: 22%;
+    margin: 20px 1.5% 0;
+    box-shadow: 1px 1px 10px rgba(0,0,0, 0.3);
+    border-radius: 4px;
+    display: inline-block;
+    vertical-align: top;
+}
+.article .cover_article{
+    height: 160px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border-radius: 4px 4px 0 0;
+}
+.article .info {
+    padding: 6px 10px;
+    background-color: rgba(0, 0, 0, 0.35);
+    color: #fff;
+    font-size: 11px;
+    margin: -26px 0 0 0;
+    text-align: right;
+}
+.article .title, .article .description{
+    padding: 10px;
+}
+.article a{
+    color: #2441a5;
+}
+.article a:visited{
+    color: #999;
+}
+#titleSource{
+    padding: 20px 0 0 1.5%;
+}
