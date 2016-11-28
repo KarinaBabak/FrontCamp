@@ -15,7 +15,7 @@ body{
 #categoryList{
     width: 100%;
     display: table;
-    background-color: #2441a5;
+    background-color: @color-blue;
     border-radius: 5px;
     color: #FFF;
     box-shadow: 2px 2px 6px rgba(0,0,0, 0.4);
@@ -36,28 +36,30 @@ body{
 #categoryList .category ul{
     display: none;
     position: absolute;
-    background-color: #2441a5;
+    background-color: @color-blue;
     text-align: left;
     margin: 7px 0 0 0;
     font-size: 14px;
     padding: 10px 0;
     overflow-y: auto;
     max-height: 360px;
-}
-#categoryList .category ul li{
-    display: block;
-    padding: 4px 20px;
-}
-#categoryList .category ul li:hover{
-    background-color: rgba(255,255,255,0.2);
-}
-#categoryList .category ul li img{
-    width: 18px;
-    margin: -3px 18px 0 0;
-    vertical-align: middle;
-    background-color: #fff;
-}
 
+    li{
+        display: block;
+        padding: 4px 20px;
+
+        &:hover{
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        img{
+            width: 18px;
+            margin: -3px 18px 0 0;
+            vertical-align: middle;
+            background-color: #fff;
+        }
+    }
+}
 
 
 #categoryList .category ul::-webkit-scrollbar {
@@ -81,31 +83,37 @@ body{
     border-radius: 4px;
     display: inline-block;
     vertical-align: top;
+
+    a{
+        color: @color-blue;
+
+        &:visited{
+            color: #999;
+        }
+    }
+
+    .cover_article{
+        height: 160px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        border-radius: 4px 4px 0 0;
+    }
+
+    .info {
+        padding: 6px 10px;
+        background-color: rgba(0, 0, 0, 0.35);
+        color: #fff;
+        font-size: 11px;
+        margin: -26px 0 0 0;
+        text-align: right;
+    }
 }
-.article .cover_article{
-    height: 160px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    border-radius: 4px 4px 0 0;
-}
-.article .info {
-    padding: 6px 10px;
-    background-color: rgba(0, 0, 0, 0.35);
-    color: #fff;
-    font-size: 11px;
-    margin: -26px 0 0 0;
-    text-align: right;
-}
+
 .article .title, .article .description{
     padding: 10px;
 }
-.article a{
-    color: #2441a5;
-}
-.article a:visited{
-    color: #999;
-}
+
 #titleSource{
     padding: 20px 0 0 1.5%;
 }

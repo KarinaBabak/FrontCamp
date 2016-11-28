@@ -12,13 +12,6 @@ module.exports = {
         modulesDirectories: ['node_modules']
     },
 
-    watch: true,
-    watchOptions: {
-        aggregateTimeout: 300
-    },
-
-
-
     module: {
         loaders: [
             {
@@ -29,7 +22,13 @@ module.exports = {
                     "presets": ["es2015"],
                     "plugins": ["add-module-exports"]
                 }
+            },
+            {
+                test: /\.less$/,
+                loader: "style-loader!css-loader!less-loader!autoprefixer-loader"
             }
         ]
     }
-}
+	
+};
+

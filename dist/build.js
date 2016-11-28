@@ -100,7 +100,7 @@
 	window.onload = function () {
 	    document.getElementById('news').onclick = function () {
 	        __webpack_require__.e/* nsure */(1, function (require) {
-	            var News = __webpack_require__(1);
+	            var News = __webpack_require__(2);
 	            var newsComponent = new News(document.body);
 	            newsComponent.load();
 	        });

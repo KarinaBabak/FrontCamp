@@ -1,5 +1,6 @@
-export default `        
-        <link rel="stylesheet" href="src/js/modules/news/less/news.css">
+import less from "./less/news.less";
+
+export default `     
         <div id="content">
             <div class="dropdown">      
                 <ul id="categoryList"></ul>
