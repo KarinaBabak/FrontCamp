@@ -3,7 +3,7 @@ export default class Article {
         this.title = title;
         this.description = description;
         this.url = url;
-        this.urlToImage = urlToImage || 'src/img/newsArticleDefault.jpg';
+        this.urlToImage = urlToImage || './img/newsArticleDefault.jpg';
         this.publishedAt = publishedAt ? new Date(publishedAt).toLocaleDateString() : " ";
     }
 }

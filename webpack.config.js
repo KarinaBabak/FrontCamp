@@ -4,15 +4,10 @@ var webpack = require('webpack');
 const NODE_ENV = process.env.NODE_ENV || 'development';   
 const WebpackBrowserPlugin = require('webpack-browser-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-
 
 module.exports = {
     entry: {
-        fetch: `${__dirname}/node_modules/whatwg-fetch/fetch.js`,        
-        app: `${__dirname}/src/js/app`,
-        css: `${__dirname}/src/style/app`,
-        "index.html": `${__dirname}/index.js`
+        app: `${__dirname}/src/js/app`
     },
 
     output: {
@@ -29,10 +24,12 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel',
+                exclude: /(node_modules)/,
                 query: {
                     "presets": ["es2015"],
                     "plugins": ["add-module-exports"]
                 }
+                
             },
             {
                 test: /\.less$/,
@@ -40,10 +37,11 @@ module.exports = {
             },
             {
                 test:   /\.css$/,
-                loader: ExtractTextPlugin.extract({
-                    fallbackLoader: "style-loader",
-                    loader: "css-loader"
-                })
+                loader: "style-loader!css-loader"
+            },
+            {
+                test: /\.(jpeg|jpg|png|gif|svg)$/, 
+                loader: "file?name=./img/[name].[ext]"
             }
         ]
     },
@@ -59,9 +57,7 @@ module.exports = {
         new WebpackBrowserPlugin(),
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify(NODE_ENV)
-        }),
-        new ExtractTextPlugin("app.css"),
-        new HtmlWebpackPlugin()
+        })
     ],
 
     devServer: {

@@ -1,4 +1,10 @@
 'use strict';
+import '../style/app.css';
+import './modules/news/img/newsArticleDefault.jpg';
+
+require('../../node_modules/babel-polyfill/lib/index.js');
+require('../../node_modules/whatwg-fetch/fetch.js');
+require("file-loader?name=index.html!../../index.html");
 
     window.onload = () => {
     document.getElementById('news').onclick = function() {

@@ -2,9 +2,7 @@
 
 import Article from '../models/article';
 import Source from '../models/source';
-
-const URL = 'https://newsapi.org/v1/';
-const API_KEY = "54a34e3171eb4b3b9e21ddf80b7c5997";
+import {URL, API_KEY} from './news.service.config'
 
 export default class NewsService {
     
