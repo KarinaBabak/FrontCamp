@@ -3,7 +3,6 @@
 var webpack = require('webpack');
 const NODE_ENV = process.env.NODE_ENV || 'development';   
 const WebpackBrowserPlugin = require('webpack-browser-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
