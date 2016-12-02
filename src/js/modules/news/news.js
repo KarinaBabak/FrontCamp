@@ -10,9 +10,8 @@ import newsContent from './newsContent';
 
 
 export default class News {
-    constructor(contentElement) {
+    constructor() {
         defineGroup();
-        this.contentElement = contentElement;
         this.newsService = new NewsService();
 
         this.sourceTemplate = (source) => {
@@ -85,9 +84,9 @@ export default class News {
         document.getElementById('titleSource').innerHTML = "News from " + title; 
     };
 
-    load() {
+    load(contentElement) {
         console.log("Loading...");
-        this.contentElement.innerHTML = newsContent;
+        contentElement.innerHTML = newsContent;
 
         this.newsService.getSources()
             .then((sources) => {
