@@ -1,7 +1,7 @@
 'use strict';
 import '../style/app.css';
 import './modules/news/img/newsArticleDefault.jpg';
-import ServiceFactory from './news/services/serviceFactory';
+import ServiceFactory from './modules/news/services/serviceFactory';
 
 require('../../node_modules/babel-polyfill/lib/index.js');
 require('../../node_modules/whatwg-fetch/fetch.js');
