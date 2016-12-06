@@ -1,7 +1,7 @@
 'use strict';
 
 import {defineGroup} from './extensions/group';
-import NewsService from './services/news.service';
+import NewsProxyService from './services/newsProxy.service';
 import Article from './models/article';
 import Source from './models/source';
 import SourceHeading from './models/sourceHeading';
@@ -13,7 +13,7 @@ import './img/newsArticleDefault.jpg';
 export default class News {
     constructor() {
         defineGroup();
-        this.newsService = new NewsService();
+        this.newsProxyService = new NewsProxyService();
 
         this.sourceTemplate = (source) => {
                 return `<li id="${source.id}" class="source" title="${source.description}">
@@ -68,10 +68,10 @@ export default class News {
 
         for(let node of document.querySelectorAll('.source')) {
             node.addEventListener('click', (e) => {
-                let sourceId = e.target.getAttribute('id');    
+                let sourceId = e.target.getAttribute('id');
                 let sourceName = e.target.innerText;
                 this.renderTitle(sourceName); 
-                this.newsService.getArticles(sourceId)
+                this.newsProxyService.getArticles(sourceId)
                     .then((articles) => this.renderArticles(articles));            
             });
         };
@@ -89,7 +89,7 @@ export default class News {
         console.log("Loading...");
         contentElement.innerHTML = newsContent;
 
-        this.newsService.getSources()
+        this.newsProxyService.getSources()
             .then((sources) => {
                  return sources
                     .group(source => {
@@ -104,7 +104,7 @@ export default class News {
             })
             .then((source) => {
                 this.renderTitle(source.name);
-                return this.newsService.getArticles(source.id);
+                return this.newsProxyService.getArticles(source.id);
             })
             .then((articles) => this.renderArticles(articles))
             .then(() => console.log("Loaded."));

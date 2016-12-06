@@ -9,11 +9,11 @@ require("file-loader?name=index.html!../../index.html");
     window.onload = () => {
         let content = document.getElementById('content');
         content.addEventListener('click', (e) => {
-            require.ensure(['./services/serviceFactory'], function(require) { 
-            let ServiceFactory = require('./services/serviceFactory');
 
-            let component = new ServiceFactory().createService(e.target.getAttribute('component'));   
-            component.load(content);
+            require.ensure(['./services/serviceFactory'], function(require) { 
+                let ServiceFactory = require('./services/serviceFactory');
+                let component = new ServiceFactory().createService(e.target.getAttribute('component'));   
+                component.load(content);
             });
         });
 };
