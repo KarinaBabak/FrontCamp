@@ -6,6 +6,7 @@ import Article from './models/article';
 import Source from './models/source';
 import SourceHeading from './models/sourceHeading';
 import newsContent from './newsContent';
+import './img/newsArticleDefault.jpg';
 
 
 

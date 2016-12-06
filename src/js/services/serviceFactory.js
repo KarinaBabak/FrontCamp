@@ -4,8 +4,8 @@ export default class ServiceFactory {
         if(service =='news') {
             let News;
 
-            require.ensure(['../news'], function(require) {
-                News = require('../news');                            
+            require.ensure(['../modules/news/news'], function(require) {
+                News = require('../modules/news/news');                            
             });
             
             return new News();
