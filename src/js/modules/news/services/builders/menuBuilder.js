@@ -6,10 +6,12 @@ export default class MenuBuilder {
     }
     
     build(sourceHeadings) {
-        return sourceHeadings
+        return '<ul id="categoryList">' + sourceHeadings
                 .map ((sourceHeading) => {
                     return this.item.build(sourceHeading);
-                });
+                })
+                .join('') 
+                + '</ul>';
     };
     
 }

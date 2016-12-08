@@ -22,7 +22,7 @@ export default class News {
     }
 
     renderMenu(sourceHeadings) {  
-        content.innerHTML += '<ul id="categoryList">' + this.buildMenu(sourceHeadings) + '</ul>';
+        content.innerHTML += this.menuBuilder.build(sourceHeadings);
 
         for(let node of document.querySelectorAll('.source')) {
             node.addEventListener('click', (e) => {
@@ -49,10 +49,6 @@ export default class News {
                 return this.articleBuilder.build(article);
             })           
             .join('');    
-    };
-
-    buildMenu(sourceHeadings) {
-        return this.menuBuilder.build(sourceHeadings).join('');    
     };
 
     load(contentElement) {
