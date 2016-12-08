@@ -5,66 +5,24 @@ import NewsProxyService from './services/newsProxy.service';
 import Article from './models/article';
 import Source from './models/source';
 import SourceHeading from './models/sourceHeading';
+import ArticleBuilder from './services/builders/articleBuilder';
+import MenuBuilder from './services/builders/menuBuilder';
 import newsContent from './newsContent';
 import './img/newsArticleDefault.jpg';
-
 
 
 export default class News {
     constructor() {
         defineGroup();
-        this.newsProxyService = new NewsProxyService();
+        this.content = document.getElementById('content');
 
-        this.sourceTemplate = (source) => {
-                return `<li id="${source.id}" class="source" title="${source.description}">
-                            <img 
-                                src="${source.urlToLogo}" 
-                                class="source_logo" 
-                                id="${source.id}"
-                                <span id="${source.id}" class="source_txt">${source.name}</span>
-                        </li>`;
-        };
-
-        this.sourceListTemplate = (sourceHeadings) => {
-            return sourceHeadings
-                        .map(sourceHeading => {
-                            return `<li class='category'>${sourceHeading.name}
-                                    <ul>
-                                        ${(sourceHeading.sources.map((source) => this.sourceTemplate(source))).join('\n')}
-                                    </ul>
-                                </li>`;
-                        })
-                        .join('');
-        };
-
-        this.articleTemplate = (article) => {
-                return `<div class="article">
-                        <div 
-                            class='cover_article' 
-                            style="background-image: url('${article.urlToImage}');">
-                        </div>
-                        <div class="info">
-                            <i>${article.publishedAt}</i>
-                        </div>
-                        <div class="title">
-                            <a href="${article.url}" target="_blank">${article.title}</a>
-                        </div>
-                        <div class="description">${article.description}</div>
-                    </div>`;
-        };
-
-        this.articleListTemplate = (articles) => {
-            return articles
-                        .map((article) => {
-                            (article.description != null)? article.description.substr(0, 100) + '...' : '';        
-                            return this.articleTemplate(article);
-                        })
-                        .join('');
-        };
+        this.articleBuilder = new ArticleBuilder();
+        this.menuBuilder = new MenuBuilder();
+        this.newsProxyService = new NewsProxyService();        
     }
 
     renderMenu(sourceHeadings) {  
-        document.getElementById('categoryList').innerHTML = this.sourceListTemplate(sourceHeadings);
+        content.innerHTML += '<ul id="categoryList">' + this.buildMenu(sourceHeadings) + '</ul>';
 
         for(let node of document.querySelectorAll('.source')) {
             node.addEventListener('click', (e) => {
@@ -78,11 +36,23 @@ export default class News {
     };
 
     renderArticles(articles) {  
-        document.getElementById('articles').innerHTML = this.articleListTemplate(articles);
+        content.innerHTML +=  `<div id="articles">` + this.buildArticles(articles) + '</div>';
     };
 
     renderTitle(title) {
-        document.getElementById('titleSource').innerHTML = "News from " + title; 
+        content.innerHTML += '<h3 id="titleSource">' + "News from " + title + '</h3>'; 
+    };
+
+    buildArticles(articles) {
+        return articles
+            .map((article) => {
+                return this.articleBuilder.build(article);
+            })           
+            .join('');    
+    };
+
+    buildMenu(sourceHeadings) {
+        return this.menuBuilder.build(sourceHeadings).join('');    
     };
 
     load(contentElement) {
