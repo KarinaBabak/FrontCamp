@@ -12,10 +12,10 @@ require("file-loader?name=index.html!../../index.html");
 
         for(let content of document.querySelectorAll('#content button')) {
             content.addEventListener('click', (e) => {                   
-                let component = serviceFactory.createService(e.target.getAttribute('component'));   
-                console.log('I am in app.js');
+                let component = serviceFactory.createService(e.target.getAttribute('component'));
                 component.load(content.parentNode);
         });
     }
 }
 
+ 
