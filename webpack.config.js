@@ -50,7 +50,7 @@ module.exports = {
         aggregateTimeout: 300
     },
 
-    devtool: NODE_ENV == 'development' ? 'cheap-module-source-map' : null,
+   
 
     plugins: [
         new WebpackBrowserPlugin(),

@@ -1,8 +1,7 @@
 export default class ArticleBuilder {
     
-    build(article) {
-        (article.description != null) ? article.description.substr(0, 100) + '...' : '';  
-              
+    build(article) {        
+
         return `<div class="article">
             <div 
                 class='cover_article' 
@@ -14,7 +13,7 @@ export default class ArticleBuilder {
             <div class="title">
                 <a href="${article.url}" target="_blank">${article.title}</a>
             </div>
-            <div class="description">${article.description}</div>
+            <div class="description">${article.shortDescription}</div>
         </div>`;
     };
 }

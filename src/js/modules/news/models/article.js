@@ -5,5 +5,6 @@ export default class Article {
         this.url = url;
         this.urlToImage = urlToImage || './img/newsArticleDefault.jpg';
         this.publishedAt = publishedAt ? new Date(publishedAt).toLocaleDateString() : " ";
+        this.shortDescription = (description != null) ? description.substr(0, 100) + '...' : '';
     }
 }

@@ -1,59 +1,55 @@
 'use strict';
 
+import less from "./less/news.less";
 import {defineGroup} from './extensions/group';
 import NewsProxyService from './services/newsProxy.service';
 import Article from './models/article';
 import Source from './models/source';
 import SourceHeading from './models/sourceHeading';
-import ArticleBuilder from './services/builders/articleBuilder';
+import ArticlesBuilder from './services/builders/articlesBuilder';
 import MenuBuilder from './services/builders/menuBuilder';
-import newsContent from './newsContent';
+import TitleBuilder from './services/builders/titleBuilder';
 import './img/newsArticleDefault.jpg';
-
 
 export default class News {
     constructor() {
         defineGroup();
-        this.content = document.getElementById('content');
 
-        this.articleBuilder = new ArticleBuilder();
+        this.articlesBuilder = new ArticlesBuilder();
         this.menuBuilder = new MenuBuilder();
+        this.titleBuilder = new TitleBuilder();
         this.newsProxyService = new NewsProxyService();        
     }
 
-    renderMenu(sourceHeadings) {  
-        content.innerHTML += this.menuBuilder.build(sourceHeadings);
-
-        for(let node of document.querySelectorAll('.source')) {
+    subscribe(context) {
+        let that = context;
+        for(let node of content.querySelectorAll('.source')) {
             node.addEventListener('click', (e) => {
                 let sourceId = e.target.getAttribute('id');
                 let sourceName = e.target.innerText;
-                this.renderTitle(sourceName); 
-                this.newsProxyService.getArticles(sourceId)
-                    .then((articles) => this.renderArticles(articles));            
+                that.renderTitle(sourceName); 
+                that.newsProxyService.getArticles(sourceId)
+                    .then((articles) => that.renderArticles(articles));            
             });
         };
+    }
+
+    renderMenu(sourceHeadings) {
+        this.content.innerHTML = this.menuBuilder.build(sourceHeadings);
     };
 
-    renderArticles(articles) {  
-        content.innerHTML +=  `<div id="articles">` + this.buildArticles(articles) + '</div>';
+    renderArticles(articles) {       
+        this.content.innerHTML +=  this.articlesBuilder.build(articles);
     };
 
-    renderTitle(title) {
-        content.innerHTML += '<h3 id="titleSource">' + "News from " + title + '</h3>'; 
-    };
-
-    buildArticles(articles) {
-        return articles
-            .map((article) => {
-                return this.articleBuilder.build(article);
-            })           
-            .join('');    
-    };
+    renderTitle(title) {        
+        this.content.innerHTML += this.titleBuilder.build(title); 
+    };   
 
     load(contentElement) {
         console.log("Loading...");
-        contentElement.innerHTML = newsContent;
+        let context = this;
+        this.content = contentElement;
 
         this.newsProxyService.getSources()
             .then((sources) => {
@@ -73,8 +69,9 @@ export default class News {
                 return this.newsProxyService.getArticles(source.id);
             })
             .then((articles) => this.renderArticles(articles))
+            .then(() => {
+                context.subscribe(context);
+            })
             .then(() => console.log("Loaded."));
     }
 }
-
-

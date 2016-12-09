@@ -13,5 +13,5 @@ export default class MenuBuilder {
                 .join('') 
                 + '</ul>';
     };
-    
+
 }
