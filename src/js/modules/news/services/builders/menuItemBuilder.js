@@ -18,4 +18,5 @@ export default class MenuItemBuilder {
                         <span id="${source.id}" class="source_txt">${source.name}</span>
                 </li>`;
     }
+
 }

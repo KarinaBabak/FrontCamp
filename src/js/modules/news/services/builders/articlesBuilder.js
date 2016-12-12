@@ -6,12 +6,7 @@ export default class ArticlesBuilder {
     }
     
     build(articles) {   
-        this.checkExistingArticles();
-
-        return '<div id="articles">'
-                 + this.buildArticleItems(articles) 
-                 + '</div>';      
-
+        return this.buildArticleItems(articles);     
        
     };
 
@@ -21,12 +16,5 @@ export default class ArticlesBuilder {
                         return this.article.build(article);
                     })           
                     .join('')
-    }
-
-    checkExistingArticles() {
-        let existingArticles = document.getElementById('articles');
-        if(existingArticles) {
-            existingArticles.remove();
-        }
-    }
+    }    
 }

@@ -6,44 +6,45 @@ import NewsProxyService from './services/newsProxy.service';
 import Article from './models/article';
 import Source from './models/source';
 import SourceHeading from './models/sourceHeading';
+import NewsLayoutBuilder from './services/builders/newsLayoutBuilder';
 import ArticlesBuilder from './services/builders/articlesBuilder';
 import MenuBuilder from './services/builders/menuBuilder';
 import TitleBuilder from './services/builders/titleBuilder';
 import './img/newsArticleDefault.jpg';
 
 export default class News {
+
     constructor() {
         defineGroup();
 
-        this.articlesBuilder = new ArticlesBuilder();
-        this.menuBuilder = new MenuBuilder();
-        this.titleBuilder = new TitleBuilder();
-        this.newsProxyService = new NewsProxyService();        
+        this.articlesBuilder_ = new ArticlesBuilder();
+        this.menuBuilder_ = new MenuBuilder();
+        this.titleBuilder_ = new TitleBuilder();
+        this.newsProxyService_ = new NewsProxyService();        
     }
 
-    subscribe(context) {
-        let that = context;
+    subscribe() {
         for(let node of content.querySelectorAll('.source')) {
             node.addEventListener('click', (e) => {
                 let sourceId = e.target.getAttribute('id');
                 let sourceName = e.target.innerText;
-                that.renderTitle(sourceName); 
-                that.newsProxyService.getArticles(sourceId)
-                    .then((articles) => that.renderArticles(articles));            
+                this.renderTitle_(sourceName); 
+                this.newsProxyService_.getArticles(sourceId)
+                    .then((articles) => this.renderArticles_(articles));            
             });
         };
     }
 
-    renderMenu(sourceHeadings) {
-        this.content.innerHTML = this.menuBuilder.build(sourceHeadings);
+    renderMenu_(sourceHeadings) {        
+        this.content.querySelector('#categoryList').innerHTML = this.menuBuilder_.build(sourceHeadings);
+    }
+
+    renderArticles_(articles) {       
+        this.content.querySelector('#articles').innerHTML =  this.articlesBuilder_.build(articles);
     };
 
-    renderArticles(articles) {       
-        this.content.innerHTML +=  this.articlesBuilder.build(articles);
-    };
-
-    renderTitle(title) {        
-        this.content.innerHTML += this.titleBuilder.build(title); 
+    renderTitle_(title) {        
+        this.content.querySelector('#titleSource').innerHTML =  this.titleBuilder_.build(title); 
     };   
 
     load(contentElement) {
@@ -51,7 +52,7 @@ export default class News {
         let context = this;
         this.content = contentElement;
 
-        this.newsProxyService.getSources()
+        this.newsProxyService_.getSources()
             .then((sources) => {
                  return sources
                     .group(source => {
@@ -61,16 +62,21 @@ export default class News {
                     });
             })
             .then((headings) => {
-                this.renderMenu(headings);
+                let newsLayoutBuilder = new NewsLayoutBuilder(context.content);
+                newsLayoutBuilder.build();
+                return headings;
+            })
+            .then((headings) => {
+                this.renderMenu_(headings);
                 return headings[0].sources[0];
             })
             .then((source) => {
-                this.renderTitle(source.name);
-                return this.newsProxyService.getArticles(source.id);
+                this.renderTitle_(source.name);
+                return this.newsProxyService_.getArticles(source.id);
             })
-            .then((articles) => this.renderArticles(articles))
+            .then((articles) => this.renderArticles_(articles))
             .then(() => {
-                context.subscribe(context);
+                context.subscribe();
             })
             .then(() => console.log("Loaded."));
     }
