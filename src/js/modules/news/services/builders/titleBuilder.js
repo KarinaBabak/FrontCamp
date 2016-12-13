@@ -1,6 +1,5 @@
 export default class TitleBuilder {
-    
-    build(title) {
+    static build(title) {
         return 'News from ' + title;
     };
     

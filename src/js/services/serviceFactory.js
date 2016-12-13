@@ -1,5 +1,4 @@
 export default class ServiceFactory {
-
     createService(service) {
         if(service =='news') {
             let News;

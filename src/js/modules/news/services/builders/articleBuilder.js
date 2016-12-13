@@ -1,7 +1,5 @@
 export default class ArticleBuilder {
-    
     build(article) {        
-
         return `<div class="article">
             <div 
                 class='cover_article' 

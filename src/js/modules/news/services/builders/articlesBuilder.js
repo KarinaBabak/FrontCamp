@@ -2,19 +2,18 @@ import ArticleBuilder from './articleBuilder';
 
 export default class ArticlesBuilder {
     constructor() {
-        this.article = new ArticleBuilder();
+        this.articleBuilder = new ArticleBuilder();
     }
     
     build(articles) {   
-        return this.buildArticleItems(articles);     
-       
+        return this.buildArticleItems_(articles);
     };
 
-    buildArticleItems(articles) {
+    buildArticleItems_(articles) {
         return articles
                     .map((article) => {
-                        return this.article.build(article);
-                    })           
-                    .join('')
-    }    
+                        return this.articleBuilder.build(article);
+                    })
+                    .join('');
+    }; 
 }

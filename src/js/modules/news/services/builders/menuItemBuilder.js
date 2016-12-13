@@ -4,12 +4,12 @@ export default class MenuItemBuilder {
         return `<li class='category'>${sourceHeading.name}
                     <ul>
                         ${(sourceHeading.sources
-                            .map((source) => this.buildSource(source))).join('\n')}
+                            .map((source) => this.buildSource_(source))).join('\n')}
                     </ul>
                 </li>`;
     };
 
-    buildSource(source) {
+    buildSource_(source) {
         return `<li id="${source.id}" class="source" title="${source.description}">
                     <img 
                         src="${source.urlToLogo}" 

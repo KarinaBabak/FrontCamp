@@ -19,7 +19,6 @@ export default class News {
 
         this.articlesBuilder_ = new ArticlesBuilder();
         this.menuBuilder_ = new MenuBuilder();
-        this.titleBuilder_ = new TitleBuilder();
         this.newsProxyService_ = new NewsProxyService();        
     }
 
@@ -44,7 +43,7 @@ export default class News {
     };
 
     renderTitle_(title) {        
-        this.content.querySelector('#titleSource').innerHTML =  this.titleBuilder_.build(title); 
+        this.content.querySelector('#titleSource').innerHTML = TitleBuilder.build(title); 
     };   
 
     load(contentElement) {
@@ -62,8 +61,7 @@ export default class News {
                     });
             })
             .then((headings) => {
-                let newsLayoutBuilder = new NewsLayoutBuilder(context.content);
-                newsLayoutBuilder.build();
+                this.content.innerHTML = NewsLayoutBuilder.build();
                 return headings;
             })
             .then((headings) => {

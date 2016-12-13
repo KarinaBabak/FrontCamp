@@ -1,11 +1,6 @@
 export default class NewsLayoutBuilder {
-    
-    constructor(content) {
-        this.content = content;
-    }
-    
-    build() {
-        this.content.innerHTML = `   
+    static build() {
+        return `   
                 <ul id="categoryList"></ul>
                 <h3 id="titleSource"></h3>
                 <div id="articles"></div>`;

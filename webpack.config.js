@@ -1,6 +1,7 @@
 'use strict';
 
 var webpack = require('webpack');
+var path = require('path')
 const NODE_ENV = process.env.NODE_ENV || 'development';   
 const WebpackBrowserPlugin = require('webpack-browser-plugin');
 
@@ -28,8 +29,11 @@ module.exports = {
                     "presets": ["es2015"],
                     "plugins": ["add-module-exports"]
                 }
-                
             },
+            // {
+            //     test: /\.html$/,
+            //     loader: "html"
+            // },
             {
                 test: /\.less$/,
                 loader: "style-loader!css-loader!less-loader!autoprefixer-loader"
@@ -44,6 +48,12 @@ module.exports = {
             }
         ]
     },
+
+//     htmlLoader: {
+//     ignoreCustomFragments: [/\{\{.*?}}/],
+//     root: path.resolve(__dirname, 'assets'),
+//     attrs: ['link:href']
+//   },
 
     watch: NODE_ENV == 'development',
     watchOptions: {
@@ -62,9 +72,13 @@ module.exports = {
     devServer: {
         host: "localhost",
         port: 8000
-    }
+    },
+
+    devtool: NODE_ENV == 'development' ? 'cheap-module-source-map' : null
 	
 };
+
+
 
 if (NODE_ENV == 'production') {
   module.exports.plugins.push(
