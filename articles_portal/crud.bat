@@ -1,1 +1,1 @@
-mongo ds049161.mlab.com:49161/articles_portal -u admin -p %1 < ./articles_portal/js/%2.js
+mongo ds049161.mlab.com:49161/articles_portal -u admin -p %1 < ./js/%2.js
