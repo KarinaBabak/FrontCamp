@@ -1,0 +1,1 @@
+mongo ds145158.mlab.com:45158/grades_db -u admin -p %1 < ./calculate.js

@@ -1,0 +1,1 @@
+mongoimport -h ds145158.mlab.com:45158 -d grades_db -c grades -u admin -p %1 --file ./grades.json
