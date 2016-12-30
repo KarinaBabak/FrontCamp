@@ -1,34 +1,51 @@
 var Article = require('../models/article');
 
 module.exports = {
-    addArticle: function(title, content, publishDate, category, imagePath) {
-
+    add: function(articleModel) {
+        var idArticle;
         var article = new Article
-        ({
-            title: title,
-            content: content,
-            description: (content != null) ? content.substr(0, 100) + '...' : '',
-            publishDate: publishDate,
-            category: category,
-            imagePath: imagePath
-        });
+            ({
+                title: articleModel.title,
+                content: articleModel.content,
+                //description: (articleModel.content != null) ? articleModel.content.substr(0, 100) + '...' : '',
+                publishDate: articleModel.publishDate || new Date().toLocaleDateString(),
+                category: articleModel.category,
+                imagePath: articleModel.imagePath,
+                imageTitle: articleModel.imageTitle
+            }); //TODO: default img
 
-        article.save(function (err) {
+            article.save(function (err, savedArticle) {
+                if (err) {
+                    console.log(err);
+                } 
+                else {
+                    console.log('oki-doki');
+                    idArticle = savedArticle._id;
+                }
+            });
+            return idArticle;
+    },
+
+    getTopTen: function() {
+        
+    },
+
+    remove: function(articleId) {
+        Article.remove({_id: articleId}, function(err) {
             if (err) {
                 console.log(err);
             } 
             else {
-                console.log('oki-doki');
+                console.log('The article is removed');
             }
-        });
+        })
     },
 
-    showArticle: function(title) {
-        Article.find();
-    },
+    getById: function(articleId) {
+        // Article.findById(articleId, function(err, article) {
+        // });
 
-    showTopTen: function() {
-        Article.find();
+        return Article.findById(articleId).exec();
     }
 
 }

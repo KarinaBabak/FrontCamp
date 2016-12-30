@@ -1,7 +1,6 @@
 extends layout
 
 block content
-
   div(class='addForm')
     h2 Add Article
     form(method='POST', action='add', enctype='multipart/form-data')
@@ -14,7 +13,8 @@ block content
       div(class='inputName') Category:
       div
         select(name='category')
-          option(value='general') General
+          each category in categories
+            option(value="#{category}")=category
       div(class='inputName') Picture:
       div
         input(type='file', name='picture')

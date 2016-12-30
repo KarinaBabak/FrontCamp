@@ -5,5 +5,3 @@ module.exports = {
             + file.mimetype.split('/')[1];
     }    
 }
-
-//

@@ -1,12 +1,30 @@
 var mongoose = require('mongoose');
 
-var Article = mongoose.model('Article', { 
-    title: String,
-    content: String,
-    publishDate: String,
-    category: String,
+var articleSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    content: {
+        type: String,
+        required: true
+    },
+    publishDate: {
+        type: String,
+        default: new Date().toLocaleDateString()
+    },
+    category: {
+        type: String,
+        default: 'General'
+    },
     imagePath: String,
     imageTitle: String
 });
+
+articleSchema.virtual('description').get(function() {
+        return this.content.substr(0, 100) + '...'
+});
+
+var Article = mongoose.model('Article', articleSchema);
 
 module.exports = Article;
