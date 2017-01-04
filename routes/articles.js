@@ -10,9 +10,7 @@ var upload = multer({ dest: 'public/uploads' });
 
 router.get('/add', function(req, res, next) {
 
-  var receivedCategories = categoryCtrl.getAll();
-
-  receivedCategories.then(function (categories) {
+  categoryCtrl.getAll().then(function (categories) {
     var categoriesNames = [];
     categories.forEach(function(category) {                
         categoriesNames.push(category.name);                
@@ -24,40 +22,28 @@ router.get('/add', function(req, res, next) {
 });
 
 router.post('/add', upload.single('picture'), function(req, res, next) {
-  var id;
-
-  async.parallel([
-    function (callback) {
-    return articleCtrl.add({
+  articleCtrl.add({
         title: req.body.title,
         content: req.body.content,
         category: req.body.category,
         imagePath: pictureCtrl.getImgPath(req.file),
         imageTitle: req.file.originalname
   })
-  }
-  ], function(err, result) {    
-    console.log(result);
-  });
+  .then((idArticle) => {
+    res.redirect('/articles/' + idArticle);
+  })      
   
-
-  // id = articleCtrl.add({
-  //       title: req.body.title,
-  //       content: req.body.content,
-  //       category: req.body.category,
-  //       imagePath: pictureCtrl.getImgPath(req.file),
-  //       imageTitle: req.file.originalname
-  // });
-
-  //console.log(id);
-
-  //res.redirect('/show', articleCtrl.showArticle(article.title));           
-  res.send('Article is added');
 });
 
 router.get('/:articleId', function(req, res, next) {
-  //res.render('showArticle', article);
+  console.log('kukusiki');
+  articleCtrl.getById(req.params['articleId'])
+  .then((article) => {
+    console.log(article);
+    res.render('showArticle', {article});
+  });
 });
+
 
 
 module.exports = router;

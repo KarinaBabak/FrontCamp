@@ -3,5 +3,5 @@ extends layout
 block content    
     h2 #{article.title}
     h3 #{article.content}
-    image(src='#{article.imagePath}')
+    image(src='#{article.imagePath}', alt='#{article.imageTitle}')
 
