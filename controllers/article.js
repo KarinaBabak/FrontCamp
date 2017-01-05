@@ -47,6 +47,10 @@ module.exports = {
         // });
 
         return Article.findById(articleId).exec();
+    },
+
+    update: function(article) {
+        
     }
 
 }

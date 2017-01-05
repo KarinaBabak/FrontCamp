@@ -10,14 +10,10 @@ var upload = multer({ dest: 'public/uploads' });
 
 router.get('/add', function(req, res, next) {
 
-  categoryCtrl.getAll().then(function (categories) {
-    var categoriesNames = [];
-    categories.forEach(function(category) {                
-        categoriesNames.push(category.name);                
-    });  
-    res.render('addArticle', {
+  categoryCtrl.getAll().then((categoriesNames) => {
+    res.render('article/addArticle', {
       categories: categoriesNames
-    });
+    })
   });
 });
 
@@ -36,14 +32,32 @@ router.post('/add', upload.single('picture'), function(req, res, next) {
 });
 
 router.get('/:articleId', function(req, res, next) {
-  console.log('kukusiki');
   articleCtrl.getById(req.params['articleId'])
   .then((article) => {
     console.log(article);
-    res.render('showArticle', {article});
+    res.render('article/showArticle', {article});
   });
 });
 
+router.get('/edit/:articleId', function(req, res, next) {
+  var renderObject = {};
+console.log('d1');
+  articleCtrl.getById(req.params['articleId'])
+  .then((article) => {
+    renderObject['article'] = article;
+  })
+  .then(() => {
+    categoryCtrl.getAll().then((categoriesNames) => {
+      categoriesNames.splice(categoriesNames.indexOf(renderObject.article.category), 1);
+      renderObject['allCategories'] = categoriesNames;
+      res.render('article/editArticle', {renderObject})
+    });
+  })
+});
+
+
+router.post('/edit', function(req, res, next) {
+});
 
 
 module.exports = router;

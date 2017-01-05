@@ -2,16 +2,14 @@ var Category = require('../models/category');
 
 module.exports = {
     getAll: function () {
-        return Category.find().exec();
-
-        // Category.find({}, function(err, categories) {
-        //     if (err) {
-        //         return console.error(err);
-        //     }
-        //     categories.forEach(function(category) {
-        //         categoriesNames.push(category.name);                
-        //     });  
-        // });  
+        return Category.find().exec().then((categories) => {
+            var categoriesNames =[];
+            
+            categories.forEach(function(category) {
+                categoriesNames.push(category.name);                           
+            });  
+            return categoriesNames;
+        })
     },
 
     add: function (categoryName) {
