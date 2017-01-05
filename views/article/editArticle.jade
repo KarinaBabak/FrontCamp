@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+  div(class='addForm')
+    h2 Edit Article
+    form(method='POST', action='add', enctype='multipart/form-data')
+      div(class='inputName') Title:
+      div
+        input(type='text', name='title', value='#{renderObject.article.title}')
+      div(class='inputName') Content:
+      div
+        textarea(type='text', name='content') #{renderObject.article.content}
+      div(class='inputName') Category:
+      div
+        select(name='category')
+          option(selected='', value="#{renderObject.article.category}") #{renderObject.article.category}
+          each category in renderObject.allCategories
+            option(value="#{category}")=category
+      div(class='inputName') Change picture:
+      div
+        input(type='file', name='picture')
+      button(class='btnAdd') Save

@@ -1,27 +1,63 @@
 var express = require('express');
 var router = express.Router();
 var multer  = require('multer');
+var async = require('async');
 var articleCtrl = require('../controllers/article');
-var pictureCtrl = require('../controllers/picture')
+var categoryCtrl = require('../controllers/category');
+var pictureCtrl = require('../controllers/picture');
 
 var upload = multer({ dest: 'public/uploads' });
 
 router.get('/add', function(req, res, next) {
-  res.render('addArticle', {});
+
+  categoryCtrl.getAll().then((categoriesNames) => {
+    res.render('article/addArticle', {
+      categories: categoriesNames
+    })
+  });
 });
 
 router.post('/add', upload.single('picture'), function(req, res, next) {
-  var pathImg = pictureCtrl.getImgPath(req.file);
-
-  articleCtrl.addArticle(req.body.title, req.body.content,
-                    new Date().toLocaleDateString(), req.body.category, pathImg, 'picture');
-                    
-  res.send('Article is added');
-
+  articleCtrl.add({
+        title: req.body.title,
+        content: req.body.content,
+        category: req.body.category,
+        imagePath: pictureCtrl.getImgPath(req.file),
+        imageTitle: req.file.originalname
+  })
+  .then((idArticle) => {
+    res.redirect('/articles/' + idArticle);
+  })      
+  
 });
 
-router.get('/show', function(req, res, next) {
-
+router.get('/:articleId', function(req, res, next) {
+  articleCtrl.getById(req.params['articleId'])
+  .then((article) => {
+    console.log(article);
+    res.render('article/showArticle', {article});
+  });
 });
+
+router.get('/edit/:articleId', function(req, res, next) {
+  var renderObject = {};
+console.log('d1');
+  articleCtrl.getById(req.params['articleId'])
+  .then((article) => {
+    renderObject['article'] = article;
+  })
+  .then(() => {
+    categoryCtrl.getAll().then((categoriesNames) => {
+      categoriesNames.splice(categoriesNames.indexOf(renderObject.article.category), 1);
+      renderObject['allCategories'] = categoriesNames;
+      res.render('article/editArticle', {renderObject})
+    });
+  })
+});
+
+
+router.post('/edit', function(req, res, next) {
+});
+
 
 module.exports = router;
