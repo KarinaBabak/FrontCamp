@@ -1,0 +1,11 @@
+{
+    
+	"session": {
+		"secret": "SECRET",
+        "key": "newcomer",
+        "cookie": {
+            "httpOnly": true,
+            "maxAge": null
+        }
+	}
+}

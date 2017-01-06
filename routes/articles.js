@@ -1,12 +1,19 @@
 var express = require('express');
 var router = express.Router();
 var multer  = require('multer');
-var async = require('async');
 var articleCtrl = require('../controllers/article');
 var categoryCtrl = require('../controllers/category');
 var pictureCtrl = require('../controllers/picture');
 
-var upload = multer({ dest: 'public/uploads' });
+var storage = multer.diskStorage({ //dest: 'public/uploads' 
+     destination: function (req, file, cb) {
+         cb(null, 'public/uploads/')
+      },
+     filename: function (req, file, cb) {
+       cb(null, file.fieldname + Date.now() + '.' + file.mimetype.split('/')[1])
+     }});
+
+var upload = multer({storage: storage});
 
 router.get('/add', function(req, res, next) {
 
@@ -27,8 +34,7 @@ router.post('/add', upload.single('picture'), function(req, res, next) {
   })
   .then((idArticle) => {
     res.redirect('/articles/' + idArticle);
-  })      
-  
+  })    
 });
 
 router.get('/:articleId', function(req, res, next) {
@@ -57,6 +63,7 @@ console.log('d1');
 
 
 router.post('/edit', function(req, res, next) {
+
 });
 
 
