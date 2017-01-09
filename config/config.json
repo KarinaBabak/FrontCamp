@@ -1,8 +1,7 @@
-{
-    
+{    
 	"session": {
 		"secret": "SECRET",
-        "key": "newcomer",
+        "key": "newVisitor",
         "cookie": {
             "httpOnly": true,
             "maxAge": null

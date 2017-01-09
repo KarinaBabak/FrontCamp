@@ -1,0 +1,6 @@
+extends ../layout
+
+block content
+    if articles !== undefined
+        each article in articles
+            include preViewArticle

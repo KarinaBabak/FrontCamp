@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+  div(class='addForm')
+    h2 Add Article
+    form(method='POST', action='registartion', enctype='multipart/form-data')
+      div(class='inputName') Login:
+      div
+        input(type='text', name='title')
+      div(class='inputName') Password:
+      div
+        input(type='text', name='password')
+      div(class='inputName') Confirm password:
+      div
+        input(type='text', name='confPassword', type='password')
+      button(class='btnRegist') Register

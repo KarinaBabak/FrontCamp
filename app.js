@@ -1,4 +1,5 @@
 var express = require('express');
+var session = require('express-session');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -6,7 +7,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-var config = require('./config');
+var config = require('./config/index');
+var passport = require('./helpers/authentication');
 var db = require('./db');
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -15,7 +17,7 @@ var category = require('./routes/category');
 
 var app = express();
 
-app.use(express.favicon());
+//app.use(express.favicon());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,11 +31,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(express.session({
+app.use(session({
   secret: config.get('session:secret'),
   key: config.get('session:key'),
   cookie: config.get('session:cookie')
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', index);
 app.use('/users', users);

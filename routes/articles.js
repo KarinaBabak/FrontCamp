@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var multer  = require('multer');
+
 var articleCtrl = require('../controllers/article');
 var categoryCtrl = require('../controllers/category');
 var pictureCtrl = require('../controllers/picture');
@@ -14,6 +15,13 @@ var storage = multer.diskStorage({ //dest: 'public/uploads'
      }});
 
 var upload = multer({storage: storage});
+
+router.get('/', function(req, res, next) {
+
+  articleCtrl.getAll().then((articles) => {
+    res.render('article/showAllArticles',{ articles });
+  });
+});
 
 router.get('/add', function(req, res, next) {
 
@@ -47,7 +55,7 @@ router.get('/:articleId', function(req, res, next) {
 
 router.get('/edit/:articleId', function(req, res, next) {
   var renderObject = {};
-console.log('d1');
+
   articleCtrl.getById(req.params['articleId'])
   .then((article) => {
     renderObject['article'] = article;
@@ -62,8 +70,26 @@ console.log('d1');
 });
 
 
-router.post('/edit', function(req, res, next) {
+router.post('/edit', upload.single('picture'), function(req, res, next) {
+  articleCtrl.update({
+    title: req.body.title,
+    content: req.body.content,
+    category: req.body.category,
+    imagePath: pictureCtrl.getImgPath(req.file),
+    imageTitle: req.file.originalname
+  }, req.body.id);
 
+  articleCtrl.getById(req.body.id)
+    .then((article) => {
+      res.render('article/showArticle', {article});
+    });  
+  
+});
+
+router.get('/delete/:articleId', function(req, res, next) {
+  articleCtrl.remove(req.params['articleId']);
+
+  //  
 });
 
 
