@@ -9,17 +9,21 @@ router.get('/register', function(req, res, next) {
 });
 
 router.post('/register', function(req, res, next) {
-    UserCtrl.create({
-      login: req.body.login,
-      password: req.body.password
-    })
-    .then(user => {
-        req.logIn(user, function(err) {
-            return err
-                ? next(err)
-                : res.redirect('/private/articles')
+    console.log('register post');
+    if(req.body.password === req.body.confPassword) {
+        UserCtrl.create({
+            login: req.body.login,
+            password: req.body.password
         })
-    })
+        .then((user) => {
+            console.log('then');
+            req.logIn(user, function(err) {
+                return err
+                    ? next(err)
+                    : res.redirect('/private/articles')
+            })
+        })
+    }
 });
 
 router.get('/login', function(req, res, next) {

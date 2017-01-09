@@ -2,15 +2,15 @@ extends ../layout
 
 block content
   div(class='addForm')
-    h2 Add Article
-    form(method='POST', action='registartion', enctype='multipart/form-data')
+    h2 Registartion
+    form(method='POST', action='register')
       div(class='inputName') Login:
       div
         input(type='text', name='title')
       div(class='inputName') Password:
       div
-        input(type='text', name='password')
+        input(type='password', name='password')
       div(class='inputName') Confirm password:
       div
-        input(type='text', name='confPassword', type='password')
-      button(class='btnRegist') Register
+        input(type='password', name='confPassword')
+      button(class='btnAdd') Register

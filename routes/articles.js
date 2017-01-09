@@ -77,13 +77,11 @@ router.post('/edit', upload.single('picture'), function(req, res, next) {
     category: req.body.category,
     imagePath: pictureCtrl.getImgPath(req.file),
     imageTitle: req.file.originalname
-  }, req.body.id);
-
-  articleCtrl.getById(req.body.id)
-    .then((article) => {
-      res.render('article/showArticle', {article});
-    });  
-  
+  }, req.body.id)
+  .then((us) => {
+    console.log(us);
+    res.redirect('/articles/' + req.body.id);
+  })
 });
 
 router.get('/delete/:articleId', function(req, res, next) {

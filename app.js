@@ -8,12 +8,14 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 var config = require('./config/index');
-var passport = require('./helpers/authentication');
+var passport = require('./passport-helpers/authentication');
 var db = require('./db');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var articles = require('./routes/articles');
 var category = require('./routes/category');
+
+var mustAuthenticatedMw = require('./passport-helpers/checkAuthMW');
 
 var app = express();
 
@@ -44,6 +46,14 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/articles', articles);
 app.use('/category', category);
+app.use('/private/articles', articles);
+
+// app.all('/private/articles/add', mustAuthenticatedMw);
+// app.all('/private/articles/edit', mustAuthenticatedMw);
+// app.all('/private/articles/edit/*', mustAuthenticatedMw);
+// app.all('/private/articles/delete', mustAuthenticatedMw);
+// app.all('/private/articles/delete/*', mustAuthenticatedMw);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

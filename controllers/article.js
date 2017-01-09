@@ -51,16 +51,11 @@ module.exports = {
     },
 
     update: function(article, articleId) {
-        Article.update({"_id" : articleId},{ $set: article}, function (err) {
-            if (err) {
-                console.log(err);
-            } 
-        });
+        return Article.update({"_id" : articleId},{ $set: article}).exec();
     },
 
     getByCategory: function(category) {
         return Article.find({category: category}).sort({publishDate: -1}).exec();
     }
-
 }
 
