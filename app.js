@@ -34,26 +34,23 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-  secret: config.get('session:secret'),
-  key: config.get('session:key'),
-  cookie: config.get('session:cookie')
+  secret: config.get('session:secret')
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.all('/private/articles/add', mustAuthenticatedMw);
+app.all('/private/articles/edit', mustAuthenticatedMw);
+app.all('/private/articles/edit/*', mustAuthenticatedMw);
+app.all('/private/articles/delete', mustAuthenticatedMw);
+app.all('/private/articles/delete/*', mustAuthenticatedMw);
 
 app.use('/', index);
 app.use('/users', users);
 app.use('/articles', articles);
 app.use('/category', category);
 app.use('/private/articles', articles);
-
-// app.all('/private/articles/add', mustAuthenticatedMw);
-// app.all('/private/articles/edit', mustAuthenticatedMw);
-// app.all('/private/articles/edit/*', mustAuthenticatedMw);
-// app.all('/private/articles/delete', mustAuthenticatedMw);
-// app.all('/private/articles/delete/*', mustAuthenticatedMw);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
