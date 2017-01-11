@@ -40,6 +40,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/private/articles', mustAuthenticatedMw);
+app.all('/private/articles/*', mustAuthenticatedMw);
 app.all('/private/articles/add', mustAuthenticatedMw);
 app.all('/private/articles/edit', mustAuthenticatedMw);
 app.all('/private/articles/edit/*', mustAuthenticatedMw);
@@ -48,7 +50,7 @@ app.all('/private/articles/delete/*', mustAuthenticatedMw);
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/articles', articles);
+//app.use('/articles', articles);
 app.use('/category', category);
 app.use('/private/articles', articles);
 

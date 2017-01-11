@@ -23,11 +23,14 @@ passport.serializeUser(function(user, done) {
 	done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
-	UserCtrl.getById(id).then((err, user) => {
-		err 
-			? done(err)
-			: done(null, user);
+passport.deserializeUser(function(id, done) {	
+	UserCtrl.getById(id).then((user) => {
+		if(user) {
+			return done(null, user)
+		}
+		else {
+			return done(err);
+		}
 	});
 });
 

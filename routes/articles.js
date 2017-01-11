@@ -42,7 +42,7 @@ router.post('/add', upload.single('picture'), function(req, res, next) {
         imageTitle: req.file.originalname
   })
   .then((idArticle) => {
-    res.redirect('/articles/' + idArticle);
+    res.redirect('/private/articles/' + idArticle);
   })    
 });
 
@@ -67,7 +67,7 @@ router.get('/edit/:articleId', function(req, res, next) {
     categoryCtrl.getAll().then((categoriesNames) => {
       categoriesNames.splice(categoriesNames.indexOf(renderObject.article.category), 1);
       renderObject['allCategories'] = categoriesNames;
-      res.render('article/editArticle', {renderObject})
+      res.render('/editArticle', {renderObject})
     });
   })
 });
@@ -82,7 +82,7 @@ router.post('/edit', upload.single('picture'), function(req, res, next) {
     imageTitle: req.file.originalname
   }, req.body.id)
   .then(() => {
-    res.redirect('/articles/' + req.body.id);
+    res.redirect('/' + req.body.id);
   })
 });
 
