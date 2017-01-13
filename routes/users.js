@@ -52,7 +52,11 @@ router.post('/login', function(req, res, next) {
 
 router.get('/logout', function(req, res, next) {
 	req.logout();
+<<<<<<< HEAD
 	res.redirect('/');
+=======
+	res.redirect('/articles');
+>>>>>>> 0bed88e16368eda05ba507ff317c08d5e568fd79
 });
 
 module.exports = router;

@@ -6,19 +6,32 @@ var articleCtrl = require('../controllers/article');
 var categoryCtrl = require('../controllers/category');
 var pictureCtrl = require('../controllers/picture');
 
+<<<<<<< HEAD
 var storage = multer.diskStorage({ 
+=======
+var storage = multer.diskStorage({ //dest: 'public/uploads' 
+>>>>>>> 0bed88e16368eda05ba507ff317c08d5e568fd79
      destination: function (req, file, cb) {
          cb(null, 'public/uploads/')
       },
      filename: function (req, file, cb) {
        cb(null, file.fieldname + Date.now() + '.' + file.mimetype.split('/')[1])
      }});
+<<<<<<< HEAD
 
 var upload = multer({storage: storage});
 
 router.get('/', function(req, res, next) {
   articleCtrl.getAll().then((articles) => {
     res.render('article/private/showAllArticles',{ articles });
+=======
+
+var upload = multer({storage: storage});
+
+router.get('/', function(req, res, next) {
+  articleCtrl.getAll().then((articles) => {
+    res.render('article/showAllArticles',{ articles });
+>>>>>>> 0bed88e16368eda05ba507ff317c08d5e568fd79
   });
 });
 
@@ -52,6 +65,7 @@ router.get('/:articleId', function(req, res, next) {
     res.render('article/showArticle', {article});
   });
 });
+<<<<<<< HEAD
 
 router.get('/edit/:articleId', function(req, res, next) {
    if (!req.user) {
@@ -59,6 +73,15 @@ router.get('/edit/:articleId', function(req, res, next) {
   }
   var renderObject = {};
 
+=======
+
+router.get('/edit/:articleId', function(req, res, next) {
+   if (!req.user) {
+    return res.redirect('/users/login');
+  }
+  var renderObject = {};
+
+>>>>>>> 0bed88e16368eda05ba507ff317c08d5e568fd79
   articleCtrl.getById(req.params['articleId'])
   .then((article) => {
     renderObject['article'] = article;
@@ -91,6 +114,11 @@ router.get('/delete/:articleId', function(req, res, next) {
     return res.redirect('/users/login');
   }
   articleCtrl.remove(req.params['articleId']);
+<<<<<<< HEAD
+=======
+
+  //  
+>>>>>>> 0bed88e16368eda05ba507ff317c08d5e568fd79
 });
 
 
