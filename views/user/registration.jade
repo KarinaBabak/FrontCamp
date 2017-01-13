@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+  div(class='addForm')
+    h2 Registartion
+    form(method='POST', action='register')
+      div(class='inputName') Login:
+      div
+        input(type='text', name='login')
+      div(class='inputName') Password:
+      div
+        input(type='password', name='password')
+      div(class='inputName') Confirm password:
+      div
+        input(type='password', name='confPassword')
+      button(class='btnAdd') Register

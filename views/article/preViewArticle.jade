@@ -1,0 +1,7 @@
+.article
+  .cover_article(style="background-image: url('#{article.imagePath}');")
+  .info
+    i #{article.publishDate}
+  .title
+    a(href='/#{article._id}', target='_blank') #{article.title}
+  .description #{article.description}

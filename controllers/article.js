@@ -28,7 +28,7 @@ module.exports = {
     },
 
     getTopTen: function() {
-        
+        return Article.find({}).limit(10).sort({publishDate: -1}).exec();
     },
 
     remove: function(articleId) {
@@ -43,15 +43,19 @@ module.exports = {
     },
 
     getById: function(articleId) {
-        // Article.findById(articleId, function(err, article) {
-        // });
-
         return Article.findById(articleId).exec();
     },
 
-    update: function(article) {
-        
-    }
+    getAll: function() {
+        return Article.find({}).sort({publishDate: -1}).exec();
+    },
 
+    update: function(article, articleId) {
+        return Article.update({"_id" : articleId},{ $set: article}).exec();
+    },
+
+    getByCategory: function(category) {
+        return Article.find({category: category}).sort({publishDate: -1}).exec();
+    }
 }
 
