@@ -1,0 +1,98 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.addForm {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.inputName {
+    color:#c3c3c3;
+    font-style: italic;
+    font-size: 16px;
+    margin: 0 0 4px 0;
+}
+
+.addForm input, .addForm textarea, .addForm select {
+    width: 100%;
+    border-radius: 3px;
+    padding: 8px 12px;
+    font-size: 16px;
+    color: #333;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.1);
+    border: 1px solid #cfcfcf;
+    background-color: #fff;
+    margin: 0 0 20px 0;
+    resize: none;
+    outline: none;
+}
+
+.addForm textarea {
+    height: 134px;
+}
+
+.addForm select {
+    width: 104.1%;
+}
+
+.btnAdd {
+    width: 15%;
+    font-size: 16px;
+    margin: 0 0 20px 0;
+    display: block;
+    height: 40px;
+    box-shadow: 6px 6px 9px rgba(0,0,0, 0.4);
+}
+
+.articleBox{
+    width: 50%;
+    margin: 0 auto;
+    border-radius: 8px;
+    padding: 0 30px 8px;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.1);
+    border: 1px solid #cfcfcf;
+    white-space: pre-line;
+}
+.articleBox .articleImg{
+    width: 100%;
+}
+.articleBox .articleDate{
+    float: right;
+    font-size: 12px;
+    color: #CCC;
+    margin: 23px 0 00;
+}
+
+.article{
+    min-width: 150px;
+    width: 22%;
+    margin: 20px 1.5% 0;
+    box-shadow: 1px 1px 10px rgba(0,0,0, 0.3);
+    border-radius: 4px;
+    display: inline-block;
+    vertical-align: top;
+}
+.article .cover_article{
+    height: 160px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border-radius: 4px 4px 0 0;
+}
+.article .info {
+    padding: 6px 10px;
+    background-color: rgba(0, 0, 0, 0.35);
+    color: #fff;
+    font-size: 11px;
+    margin: -26px 0 0 0;
+    text-align: right;
+}
+.article .title, .article .description{
+    padding: 10px;
+}
