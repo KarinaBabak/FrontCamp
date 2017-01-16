@@ -28,7 +28,7 @@ class App extends Component {
 
 
   render() {
-    return this.state.route === "Article" ?
+    return this.state.route === "getArticle" ?
       <Article globalState={this.state} changeRoute={this.changeRoute} /> :
       <ArticleCollection globalState={this.state} changeRoute={this.changeRoute} />
   }
