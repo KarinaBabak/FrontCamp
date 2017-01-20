@@ -5,10 +5,11 @@ import $ from "jquery";
 class Article extends Component {
   constructor(props) {
     super(props);
-    debugger;
+    
     this.articleId = props.globalState.selectedId;
     this.changeRoute = props.changeRoute;
     this.redirectToAll = this.redirectToAll.bind(this);
+    this.serverUrl = props.globalState.serverUrl;
     this.state = {
         loaded: false,
         article: {}
@@ -28,7 +29,7 @@ class Article extends Component {
     debugger;
       var self = this;
       $.ajax({
-        url: 'http://localhost:4000/' + self.props.globalState.route,
+        url: self.serverUrl + self.props.globalState.route,
         type: 'POST',
         data: ({
           "articleId": self.articleId
@@ -47,15 +48,19 @@ class Article extends Component {
       })
   }
 
+  generateUrlToImage(pathImg) {
+    return this.serverUrl + pathImg;
+  }
+
   render() {
     return (
       <div>
       <p className="backLink" onClick={this.redirectToAll}>Back to all articles</p>
-      <div className="articleBox">
-        <span className="articleDate">{this.state.publishDate}</span>          
-        <h2 className="articleTitle">{this.state.title}</h2>
-        <img src='picture1484296905157.jpeg' className="articleImg" alt='imgName' role="presentation"/>
-        <p> </p>
+      <div lassName="articleBox">
+        <span className="articleDate">{this.state.article.publishDate}</span>          
+        <h2 className="articleTitle">{this.state.article.title}</h2>
+        <img src={this.generateUrlToImage(this.state.article.imagePath)} className="articleImg" alt={this.state.article.imageTitle} role="presentation"/>
+        <p>{this.state.article.content}</p>
       </div>
       </div>
     );

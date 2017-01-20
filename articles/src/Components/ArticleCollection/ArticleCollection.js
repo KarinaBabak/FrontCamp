@@ -18,18 +18,17 @@ class ArticleCollection extends Component {
         this.getDataFromSever(); 
     }
 
-    selectArticle(e, id1) {
-        let { id } = e.target.dataset;
+    selectArticle(e, id) {
         this.changeRoute({
             route: 'getArticle',
-            selectedId: id1
+            selectedId: id
         });
   }
 
     getDataFromSever() {
       var self = this;
       $.ajax({
-        url: 'http://localhost:4000/' + self.props.globalState.route,
+        url: self.props.globalState.serverUrl + self.props.globalState.route,
         dataType: 'json',
         type: 'POST',
         cache: false,
@@ -46,14 +45,13 @@ class ArticleCollection extends Component {
   }
 
     render() {
-
         return (
             <div>
             {
                 this.state.loaded ?
                     this.state.articles.map((article) => 
                     <div key={article._id} data-id={article._id} onClick={(e) => {this.selectArticle(e, article._id)}} className="article">
-                        <div className="cover_article" style={{ backgroundImage: "url(' + {article.imagePath} + ')"}} role="presentation"></div>
+                        <div className="cover_article" style={{backgroundImage: `url('${this.props.globalState.serverUrl + article.imagePath}')`}} role="presentation"></div>
                         <div className="info"><i>{article.publishDate}</i></div>
                         <div className="title">{article.title}</div>
                         <div className="description">{article.description}</div>

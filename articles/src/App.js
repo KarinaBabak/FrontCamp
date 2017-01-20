@@ -11,6 +11,7 @@ class App extends Component {
     this.changeRoute = this.changeRoute.bind(this);
     
     this.state = {
+      serverUrl: 'http://localhost:4000/',
       route: "getAllArticles",
       selectedId: 0,
       articles: []
