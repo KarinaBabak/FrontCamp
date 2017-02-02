@@ -17,7 +17,10 @@ var articleSchema = new mongoose.Schema({
         type: String,
         default: 'General'
     },
-    imagePath: String,
+    imagePath: {
+        type: String,
+        default: '/uploads/pictureDefault.jpeg'
+    },
     imageTitle: String
 });
 

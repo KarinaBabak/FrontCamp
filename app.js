@@ -6,12 +6,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var cors = require('cors')
 
 var config = require('./config/index');
 var passport = require('./passport-helpers/authentication');
 var db = require('./db');
 var index = require('./routes/index');
 var users = require('./routes/users');
+var admin = require('./routes/admin');
 var articles = require('./routes/articles');
 var category = require('./routes/category');
 
@@ -27,6 +29,7 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -48,11 +51,13 @@ app.all('/private/articles/edit/*', mustAuthenticatedMw);
 app.all('/private/articles/delete', mustAuthenticatedMw);
 app.all('/private/articles/delete/*', mustAuthenticatedMw);
 
-app.use('/', index);
+app.use('/api/articles', index);
+app.use('/admin', admin);
 app.use('/users', users);
 //app.use('/articles', articles);
 app.use('/category', category);
 app.use('/private/articles', articles);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -22,6 +22,19 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.post('/getAllArticles', function(req, res, next) {
+  articleCtrl.getAll().then((articles) => {
+    res.json(articles);
+  });
+});
+
+router.post('/getArticleById', function(req, res, next) {
+  articleCtrl.getById(req.body.articleId)
+  .then((article) => {
+    res.json(article);
+  });
+});
+
 router.get('/add', function(req, res, next) {
    if (!req.user) {
     return res.redirect('/users/login');
@@ -46,12 +59,12 @@ router.post('/add', upload.single('picture'), function(req, res, next) {
   })    
 });
 
-router.get('/:articleId', function(req, res, next) {
-  articleCtrl.getById(req.params['articleId'])
-  .then((article) => {
-    res.render('article/showArticle', {article});
-  });
-});
+// router.get('/:articleId', function(req, res, next) {
+//   articleCtrl.getById(req.params['articleId'])
+//   .then((article) => {
+//     res.render('article/showArticle', {article});
+//   });
+// });
 
 router.get('/edit/:articleId', function(req, res, next) {
    if (!req.user) {

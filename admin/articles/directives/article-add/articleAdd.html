@@ -1,0 +1,19 @@
+<div><h2>Add Article</h2>
+  <form ng-submit="articleAddCtrl.addEditArticleForm.$valid && articleAddCtrl.save()" name="articleAddCtrl.addEditArticleForm" novalidate="novalidate">
+    <div class="inputName">Title:</div>
+    <div>
+      <input type="text" name="title" ng-model='articleAddCtrl.article.title' ng-required='true'/>
+      <span style='color:red' ng-show='articleAddCtrl.addEditArticleForm.title.$invalid && (articleAddCtrl.addEditArticleForm.title.$dirty || articleAddCtrl.addEditArticleForm.$submitted)'>Article's title is required</span>
+    </div>
+    <div class="inputName">Content:</div>
+    <div>
+      <textarea type="text" name="content" ng-model='articleAddCtrl.article.content' ng-required='true'></textarea>
+      <span style='color:red' ng-show='articleAddCtrl.addEditArticleForm.content.$invalid && (articleAddCtrl.addEditArticleForm.content.$dirty || articleAddCtrl.addEditArticleForm.$submitted)'>Article's content is required</span>
+    </div>
+    <div class="inputName">Category:</div>
+    <div class="inputName" >Picture:</div>
+    <div>
+      <input type="file" name="picture" ng-model='articleAddCtrl.article.pathImg'/>
+    </div>
+    <button type="submit">Add</button>
+  </form></div>
