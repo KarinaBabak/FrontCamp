@@ -31,6 +31,12 @@ router.get('/:articleId', function(req, res, next) {
   });
 });
 
+router.get('/categories', function(req, res, next) {
+  categoryCtrl.getAll().then((categories) => {
+    res.json(categories);
+  });
+});
+
 router.post('/', upload.single('picture'), function(req, res, next) {
   articleCtrl.add({
         title: req.body.title,

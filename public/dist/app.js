@@ -86,7 +86,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var articleApp = angular.module('articleApp', ["ngResource"]).controller('ArticleListController', ['articleService', 'categoryService', _articleListController.ArticleListController]).controller('ArticleAddController', ['$location', 'articleService', _articleAddController.ArticleAddController]).factory('articleService', ['$resource', _articleService2.default]).directive('articleAdd', _articleAdd.articleAdd).component('articleListComponent', _articleListComponent.articleListComponent);
+	var articleApp = angular.module('articleApp', ["ngResource"]).controller('ArticleListController', ['articleService', 'categoryService', _articleListController.ArticleListController]).controller('ArticleAddController', ['$location', 'articleService', _articleAddController.ArticleAddController]).factory('articleService', ['$resource', _articleService2.default]).factory('categoryService', ['$resource', _categoryService2.default]).directive('articleAdd', _articleAdd.articleAdd).component('articleListComponent', _articleListComponent.articleListComponent);
 
 	exports.default = articleApp;
 
@@ -112,6 +112,7 @@
 	        this.categoryService = categoryService;
 
 	        this.getArticles();
+	        this.getCategories();
 	    }
 
 	    _createClass(ArticleListController, [{
@@ -217,7 +218,7 @@
 	});
 
 	exports.default = function ($resource) {
-	    var url = '/category';
+	    var url = '/api/articles/categories';
 	    return $resource(url, {}, {
 	        get: {
 	            method: "GET",

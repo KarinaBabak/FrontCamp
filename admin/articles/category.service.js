@@ -1,5 +1,5 @@
 export default ($resource) => {
-    var url = '/category';
+    var url = '/api/articles/categories';
     return $resource(url, {}, {
         get: {
             method: "GET",
