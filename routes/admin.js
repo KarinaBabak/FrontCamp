@@ -9,9 +9,6 @@ var router = express.Router();
 
 router.get('/*', function(req, res, next) {
     res.render('admin/admin');
-  //articleCtrl.getAll().then((articles) => {
-    
-  //});
 });
 
 module.exports = router;

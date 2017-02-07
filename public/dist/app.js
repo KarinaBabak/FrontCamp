@@ -50,7 +50,7 @@
 
 	var _articleModule2 = _interopRequireDefault(_articleModule);
 
-	var _adminRouting = __webpack_require__(12);
+	var _adminRouting = __webpack_require__(16);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -82,11 +82,17 @@
 
 	var _articleListComponent = __webpack_require__(6);
 
-	var _articleAdd = __webpack_require__(9);
+	var _categoryComponent = __webpack_require__(9);
+
+	var _articleAdd = __webpack_require__(12);
+
+	var _capitalizeCase = __webpack_require__(15);
+
+	var _capitalizeCase2 = _interopRequireDefault(_capitalizeCase);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var articleApp = angular.module('articleApp', ["ngResource"]).controller('ArticleListController', ['articleService', 'categoryService', _articleListController.ArticleListController]).controller('ArticleAddController', ['$location', 'articleService', _articleAddController.ArticleAddController]).factory('articleService', ['$resource', _articleService2.default]).factory('categoryService', ['$resource', _categoryService2.default]).directive('articleAdd', _articleAdd.articleAdd).component('articleListComponent', _articleListComponent.articleListComponent);
+	var articleApp = angular.module('articleApp', ["ngResource"]).controller('ArticleListController', ['articleService', 'categoryService', _articleListController.ArticleListController]).controller('ArticleAddController', ['$location', 'articleService', 'categoryService', _articleAddController.ArticleAddController]).factory('articleService', ['$resource', _articleService2.default]).factory('categoryService', ['$resource', _categoryService2.default]).directive('articleAdd', _articleAdd.articleAdd).component('articleListComponent', _articleListComponent.articleListComponent).component('categoryComponent', _categoryComponent.categoryComponent).filter("capitalizeCase", _capitalizeCase2.default);
 
 	exports.default = articleApp;
 
@@ -131,8 +137,13 @@
 	            var _this2 = this;
 
 	            this.categoryService.query().$promise.then(function (categories) {
-	                debugger;
-	                _this2.categories = categories;
+	                var categoriesNames = [];
+
+	                categories.forEach(function (category) {
+	                    categoriesNames.push(category.name);
+	                });
+
+	                _this2.categories = categoriesNames;
 	            });
 	        }
 	    }]);
@@ -155,12 +166,15 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var ArticleAddController = exports.ArticleAddController = function () {
-	    function ArticleAddController(location, ArticleService) {
+	    function ArticleAddController(location, ArticleService, сategoryService) {
 	        _classCallCheck(this, ArticleAddController);
 
 	        this.ArticleService = ArticleService;
 	        this.article = new ArticleService();
+	        this.сategoryService = сategoryService;
 	        this.location = location;
+
+	        this.getCategories();
 	    }
 
 	    _createClass(ArticleAddController, [{
@@ -168,6 +182,7 @@
 	        value: function saveArticle() {
 	            var _this = this;
 
+	            debugger;
 	            var fd = new FormData();
 	            for (var key in this.article) {
 	                fd.append(key, this.article[key]);
@@ -175,6 +190,21 @@
 
 	            this.ArticleService.create({}, fd).$promise.then(function () {
 	                _this.location.path("/");
+	            });
+	        }
+	    }, {
+	        key: "getCategories",
+	        value: function getCategories() {
+	            var _this2 = this;
+
+	            this.сategoryService.query().$promise.then(function (categories) {
+	                var categoriesNames = [];
+
+	                categories.forEach(function (category) {
+	                    categoriesNames.push(category.name);
+	                });
+
+	                _this2.categories = categoriesNames;
 	            });
 	        }
 	    }]);
@@ -193,14 +223,14 @@
 	});
 
 	exports.default = function ($resource) {
-	    var url = '/api/articles';
-	    return $resource(url, {}, {
+	    var url = '/api/articles/:articleId';
+	    return $resource(url, { articleId: '@id' }, {
 	        create: {
 	            method: "POST",
 	            transformRequest: angular.identity,
 	            headers: { 'Content-Type': undefined }
 	        },
-	        edit: {
+	        update: {
 	            method: "PUT",
 	            transformRequest: angular.identity,
 	            headers: { 'Content-Type': undefined }
@@ -269,7 +299,7 @@
 /* 8 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\r\n    <p ng-bind=\"$ctrl.articles.length\"></p>\r\n\r\n    <div ng-repeat=\"article in $ctrl.articles\">\r\n            <p ng-bind=\"article.title\"></p>\r\n    </div>\r\n</div>"
+	module.exports = "<div>\r\n    <p ng-bind=\"$ctrl.articles.length\"></p>\r\n\r\n    <div ng-repeat=\"article in $ctrl.articles | orderBy:'publishDate'\">\r\n            <p ng-bind=\"article.title\"></p>\r\n    </div>\r\n</div>"
 
 /***/ },
 /* 9 */
@@ -280,18 +310,63 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.categoryComponent = undefined;
+
+	var _categoryComponentCtrl = __webpack_require__(10);
+
+	var categoryComponent = exports.categoryComponent = {
+	    bindings: {
+	        defaultMessage: '<',
+	        categories: '<'
+	    },
+	    controller: _categoryComponentCtrl.categoryComponentCtrl,
+	    template: __webpack_require__(11)
+	};
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var categoryComponentCtrl = exports.categoryComponentCtrl = function categoryComponentCtrl() {
+	    _classCallCheck(this, categoryComponentCtrl);
+	};
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	module.exports = "<div>\r\n\r\n    <div ng-repeat=\"category in $ctrl.categories\">\r\n            <div ng-bind=\"category | capitalizeCase\" class=\"category\"></div>\r\n    </div>\r\n</div>"
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.articleAdd = undefined;
 
-	var _articleAddCtrl = __webpack_require__(10);
+	var _articleAddCtrl = __webpack_require__(13);
 
 	var articleAdd = exports.articleAdd = function articleAdd() {
 	    return {
 	        restrict: 'E',
 	        scope: {
 	            article: '=',
+	            categories: '=',
 	            saveArticle: '&'
 	        },
-	        template: __webpack_require__(11),
+	        template: __webpack_require__(14),
 	        controller: _articleAddCtrl.ArticleAddCtrl,
 	        controllerAs: 'articleAddCtrl',
 	        bindToController: true
@@ -299,7 +374,7 @@
 	};
 
 /***/ },
-/* 10 */
+/* 13 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -320,8 +395,10 @@
 	    _createClass(ArticleAddCtrl, [{
 	        key: "save",
 	        value: function save() {
+	            debugger;
 	            var file = this.addEditArticleForm.picture.$$element[0].files[0];
 	            this.article.picture = file;
+	            this.article.category = this.addEditArticleForm.category.$$element[0].selectedOptions.label;
 	            this.saveArticle();
 	        }
 	    }]);
@@ -330,13 +407,33 @@
 	}();
 
 /***/ },
-/* 11 */
+/* 14 */
 /***/ function(module, exports) {
 
-	module.exports = "<div><h2>Add Article</h2>\r\n  <form ng-submit=\"articleAddCtrl.addEditArticleForm.$valid && articleAddCtrl.save()\" name=\"articleAddCtrl.addEditArticleForm\" novalidate=\"novalidate\">\r\n    <div class=\"inputName\">Title:</div>\r\n    <div>\r\n      <input type=\"text\" name=\"title\" ng-model='articleAddCtrl.article.title' ng-required='true'/>\r\n      <span style='color:red' ng-show='articleAddCtrl.addEditArticleForm.title.$invalid && (articleAddCtrl.addEditArticleForm.title.$dirty || articleAddCtrl.addEditArticleForm.$submitted)'>Article's title is required</span>\r\n    </div>\r\n    <div class=\"inputName\">Content:</div>\r\n    <div>\r\n      <textarea type=\"text\" name=\"content\" ng-model='articleAddCtrl.article.content' ng-required='true'></textarea>\r\n      <span style='color:red' ng-show='articleAddCtrl.addEditArticleForm.content.$invalid && (articleAddCtrl.addEditArticleForm.content.$dirty || articleAddCtrl.addEditArticleForm.$submitted)'>Article's content is required</span>\r\n    </div>\r\n    <div class=\"inputName\">Category:</div>\r\n    <div class=\"inputName\" >Picture:</div>\r\n    <div>\r\n      <input type=\"file\" name=\"picture\" ng-model='articleAddCtrl.article.pathImg'/>\r\n    </div>\r\n    <button type=\"submit\">Add</button>\r\n  </form></div>\r\n"
+	module.exports = "<div><h2>Add Article</h2>\r\n  <form ng-submit=\"articleAddCtrl.addEditArticleForm.$valid && articleAddCtrl.save()\" name=\"articleAddCtrl.addEditArticleForm\" novalidate=\"novalidate\">\r\n    <div class=\"inputName\">Title:</div>\r\n    <div>\r\n      <input type=\"text\" name=\"title\" ng-model='articleAddCtrl.article.title' ng-required='true'/>\r\n      <span style='color:red' ng-show='articleAddCtrl.addEditArticleForm.title.$invalid && (articleAddCtrl.addEditArticleForm.title.$dirty || articleAddCtrl.addEditArticleForm.$submitted)'>Article's title is required</span>\r\n    </div>\r\n    <div class=\"inputName\">Content:</div>\r\n    <div>\r\n      <textarea type=\"text\" name=\"content\" ng-model='articleAddCtrl.article.content' ng-required='true'></textarea>\r\n      <span style='color:red' ng-show='articleAddCtrl.addEditArticleForm.content.$invalid && (articleAddCtrl.addEditArticleForm.content.$dirty || articleAddCtrl.addEditArticleForm.$submitted)'>Article's content is required</span>\r\n    </div>\r\n    <div class=\"inputName\">Category:</div>\r\n    <select ng-model=\"articleAddCtrll.category\" name=\"category\" ng-options=\"category for category in articleAddCtrl.categories | capitalizeCase\">\r\n    </select>\r\n    <div class=\"inputName\" >Picture:</div>\r\n    <div>\r\n      <input type=\"file\" name=\"picture\" ng-model='articleAddCtrl.article.pathImg'/>\r\n    </div>\r\n    <button type=\"submit\">Add</button>\r\n  </form></div>\r\n"
 
 /***/ },
-/* 12 */
+/* 15 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function () {
+	    return function (input) {
+	        if (angular.isString(input)) {
+	            return angular.uppercase(input[0]) + angular.lowercase(input.substring(1));
+	        } else {
+	            return input;
+	        }
+	    };
+	};
+
+/***/ },
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -346,33 +443,42 @@
 	});
 	var routes = exports.routes = function routes($routeProvider, $locationProvider) {
 	    $routeProvider.when('/', {
-	        template: __webpack_require__(13),
+	        template: __webpack_require__(17),
 	        controller: 'ArticleListController',
 	        controllerAs: 'articleListCtrl',
 	        caseInsensitiveMatch: true
 	    });
 
 	    $routeProvider.when('/add', {
-	        template: __webpack_require__(14),
+	        template: __webpack_require__(18),
 	        controller: 'ArticleAddController',
 	        controllerAs: 'articleAddCtrl',
 	        caseInsensitiveMatch: true
 	    });
 
+	    // $routeProvider.when("/:articleId", 
+	    //     {
+	    //         template: require('./articles/article.html'),
+	    //         controller: 'ArticleCtrl',
+	    //         controllerAs: 'articleCtrl',
+	    //         caseInsensitiveMatch: true,
+	    //         data: {}
+	    //     });
+
 	    $locationProvider.html5Mode(true);
 	};
 
 /***/ },
-/* 13 */
+/* 17 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\r\n    <article-list-component articles=\"articleListCtrl.articles\"></article-list-component>\r\n</div>\r\n\r\n\r\n"
+	module.exports = "<div>\r\n    <category-component categories=\"articleListCtrl.categories\"></category-component>\r\n    <a href='/admin/add'>Add article</a>\r\n    <article-list-component articles=\"articleListCtrl.articles\"></article-list-component>\r\n</div>\r\n\r\n\r\n"
 
 /***/ },
-/* 14 */
+/* 18 */
 /***/ function(module, exports) {
 
-	module.exports = "<p>Create page</p>\r\n<article-add article='articleAddCtrl.article' save-article='articleAddCtrl.saveArticle()'></article-add> "
+	module.exports = "<article-add article='articleAddCtrl.article' categories='articleAddCtrl.categories' save-article='articleAddCtrl.saveArticle()'></article-add> "
 
 /***/ }
 /******/ ]);

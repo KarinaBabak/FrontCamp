@@ -96,3 +96,15 @@ a {
 .article .title, .article .description{
     padding: 10px;
 }
+
+.category{
+    list-style-type: none;
+    text-align: center;
+    padding: 10px 0;
+    cursor: pointer;
+    background-color: #2441a5;
+    border-radius: 5px;
+    color: #FFF;
+    box-shadow: 2px 2px 6px rgba(0,0,0, 0.4);
+    display: inline-block;
+}

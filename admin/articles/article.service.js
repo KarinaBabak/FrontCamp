@@ -1,12 +1,12 @@
 export default ($resource) => {
-    var url = '/api/articles';
-    return $resource(url, {}, {
+    var url = '/api/articles/:articleId';
+    return $resource(url, { articleId: '@id'}, {
         create: {
             method: "POST",
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         },
-        edit: {
+        update: {
             method: "PUT",
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }

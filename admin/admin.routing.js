@@ -15,5 +15,14 @@ export const routes = ($routeProvider, $locationProvider) => {
             caseInsensitiveMatch: true
         });
 
+    // $routeProvider.when("/:articleId", 
+    //     {
+    //         template: require('./articles/article.html'),
+    //         controller: 'ArticleCtrl',
+    //         controllerAs: 'articleCtrl',
+    //         caseInsensitiveMatch: true,
+    //         data: {}
+    //     });
+
         $locationProvider.html5Mode(true);
 };

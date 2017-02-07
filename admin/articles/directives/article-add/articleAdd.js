@@ -5,6 +5,7 @@ export const articleAdd = () => {
         restrict: 'E',        
         scope: {  
             article: '=',
+            categories: '=',
             saveArticle: '&'           
         },
         template: require('./articleAdd.html'),

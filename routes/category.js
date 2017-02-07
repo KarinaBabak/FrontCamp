@@ -9,8 +9,8 @@ router.get('/add', function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-    categoryCtrl.getAll().then((articles) => {
-    res.json(articles);
+    categoryCtrl.getAll().then((categories) => {
+    res.json(categories);
   });
 });
 

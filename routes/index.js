@@ -23,14 +23,6 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/:articleId', function(req, res, next) {
-  console.log(req.body);
-  articleCtrl.getById(req.body.articleId)
-  .then((article) => {
-    res.json(article);
-  });
-});
-
 router.get('/categories', function(req, res, next) {
   categoryCtrl.getAll().then((categories) => {
     res.json(categories);
@@ -38,6 +30,8 @@ router.get('/categories', function(req, res, next) {
 });
 
 router.post('/', upload.single('picture'), function(req, res, next) {
+  console.log('create article');
+  console.log(req.body.category);
   articleCtrl.add({
         title: req.body.title,
         content: req.body.content,
@@ -48,6 +42,14 @@ router.post('/', upload.single('picture'), function(req, res, next) {
   .then((idArticle) => {
     res.json(idArticle);
   })    
+});
+
+router.get('/:articleId', function(req, res, next) {
+  console.log(req.body);
+  articleCtrl.getById(req.body.articleId)
+  .then((article) => {
+    res.json(article);
+  });
 });
 
 module.exports = router;

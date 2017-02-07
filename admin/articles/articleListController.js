@@ -16,9 +16,13 @@ export class ArticleListController {
 
     getCategories() {
         this.categoryService.query().$promise.then((categories) => {
-            debugger;
-            this.categories = categories;
+            var categoriesNames =[];
+            
+            categories.forEach(function(category) {
+                categoriesNames.push(category.name);                           
+            });  
+
+            this.categories = categoriesNames;
         });
     }
-
 }
