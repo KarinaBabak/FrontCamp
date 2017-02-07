@@ -299,7 +299,7 @@
 /* 8 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\r\n    <p ng-bind=\"$ctrl.articles.length\"></p>\r\n\r\n    <div ng-repeat=\"article in $ctrl.articles | orderBy:'publishDate'\">\r\n            <p ng-bind=\"article.title\"></p>\r\n    </div>\r\n</div>"
+	module.exports = "<div>\r\n    <p ng-bind=\"$ctrl.articles.length\"></p>\r\n<div class=\"container\">\r\n    <div ng-repeat=\"article in $ctrl.articles | orderBy:'publishDate'\" class=\"articleBox\">\r\n        <a ng-href=\"/admin/{{article._id}}\" ng-bind=\"article.title\"></a>\r\n    </div>\r\n</div>\r\n</div>"
 
 /***/ },
 /* 9 */

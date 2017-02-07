@@ -1,7 +1,8 @@
 <div>
     <p ng-bind="$ctrl.articles.length"></p>
-
-    <div ng-repeat="article in $ctrl.articles | orderBy:'publishDate'">
-            <p ng-bind="article.title"></p>
+<div class="container">
+    <div ng-repeat="article in $ctrl.articles | orderBy:'publishDate'" class="articleBox">
+        <a ng-href="/admin/{{article._id}}" ng-bind="article.title"></a>
     </div>
+</div>
 </div>
