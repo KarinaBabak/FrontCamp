@@ -44,12 +44,34 @@ router.post('/', upload.single('picture'), function(req, res, next) {
   })    
 });
 
+router.put('/', upload.single('picture'), function(req, res, next) {
+  console.log('update!');
+  articleCtrl.update({
+    title: req.body.title,
+    content: req.body.content,
+    category: req.body.category,
+    imagePath: pictureCtrl.getImgPath(req.file),
+    imageTitle: req.file.originalname
+  }, req.body.id)
+  .then(() => {
+    res.json('the article is updated');
+  })
+});
+
 router.get('/:articleId', function(req, res, next) {
-  console.log(req.body);
-  articleCtrl.getById(req.body.articleId)
-  .then((article) => {
-    res.json(article);
-  });
+  console.log(req.params.articleId);
+  articleCtrl.getById(req.params.articleId)
+    .then((article) => {
+      res.json(article);
+    });
+});
+
+router.post('/:articleId', function(req, res, next) {
+  console.log('delete!');
+  articleCtrl.remove(req.body.id)
+    .then(() => {
+      res.json('the article is removed');
+    })
 });
 
 module.exports = router;

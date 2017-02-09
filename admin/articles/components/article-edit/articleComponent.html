@@ -1,0 +1,26 @@
+<div class="articleBox" >
+    <a href="/admin/">Back to all</a>
+
+    <div><h2>Edit Article</h2>
+  <form class="addForm" ng-submit="$ctrl.addEditArticleForm.$valid && $ctrl.save()" name="$ctrl.addEditArticleForm" novalidate="novalidate">
+    <div class="inputName">Title:</div>
+      <input type="text" name="title" ng-model='$ctrl.article.title' value='{{$ctrl.article.title}}' ng-required='true'/>
+      <span style='color:red' ng-show='$ctrl.addEditArticleForm.title.$invalid && ($ctrl.addEditArticleForm.title.$dirty || $ctrl.addEditArticleForm.$submitted)'>Article's title is required</span>
+    <div class="inputName">Content:</div>
+    <div>
+      <textarea type="text" name="content" ng-model='$ctrl.article.content' ng-required='true' min-length-validation>{{$ctrl.article.content}}</textarea>
+      <span style='color:red' ng-show='$ctrl.addEditArticleForm.content.$invalid && ($ctrl.addEditArticleForm.content.$dirty || $ctrl.addEditArticleForm.$submitted)'>Article's content is required</span>
+    </div>
+    <div class="inputName">Category:</div>
+    <select ng-model="$ctrl.category" name="category" ng-options="category for category in $ctrl.categories | capitalizeCase">
+        <option value="" selected="selected">{{$ctrl.article.category}}</option>
+    </select>
+    <div class="inputName" >Picture:</div>
+    <img src='{{$ctrl.article.imagePath}}' alt='{{$ctrl.article.imageTitle}}' class='articleImg'/>
+    <div>
+      <input type="file" name="picture" value="{{$ctrl.article.pathImg}}" ng-model='$ctrl.article.pathImg'/>
+    </div>
+    <button type="submit" class="btnAdd">Save</button>
+    <button type="button" class="btnAdd" ng-click="$ctrl.delete()">Delete</button>
+  </form></div>
+</div>
