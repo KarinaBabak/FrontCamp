@@ -10,11 +10,6 @@ export default ($resource) => {
             method: "PUT",
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
-        },
-        delete: {
-            method: 'DELETE',
-            transformRequest: angular.identity,
-            headers: { 'Content-Type': undefined }
         }
     })
 };

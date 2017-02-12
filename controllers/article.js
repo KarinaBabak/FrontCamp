@@ -32,14 +32,15 @@ module.exports = {
     },
 
     remove: function(articleId) {
-        Article.remove({_id: articleId}, function(err) {
-            if (err) {
-                console.log(err);
-            } 
-            else {
-                console.log('The article is removed');
-            }
-        })
+        return Article.remove({_id: articleId}).exec();
+        // , function(err) {
+        //     if (err) {
+        //         console.log(err);
+        //     } 
+        //     else {
+        //         console.log('The article is removed');
+        //     }
+        // })
     },
 
     getById: function(articleId) {

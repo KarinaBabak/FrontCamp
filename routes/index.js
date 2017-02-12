@@ -66,9 +66,8 @@ router.get('/:articleId', function(req, res, next) {
     });
 });
 
-router.post('/:articleId', function(req, res, next) {
-  console.log('delete!');
-  articleCtrl.remove(req.body.id)
+router.delete('/:articleId', function(req, res, next) {
+  articleCtrl.remove(req.params.articleId)
     .then(() => {
       res.json('the article is removed');
     })
