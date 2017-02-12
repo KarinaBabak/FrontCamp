@@ -1,6 +1,21 @@
 // Karma configuration
 
+var path = require("path");
+
 module.exports = function(config) {
+
+  var sourcePreprocessors = ['webpack', 'coverage'];
+  var sourceReporters = ['progress', 'istanbul']
+
+  function isDebug(argument) {
+    return argument === '--debug';
+  }
+
+  if (process.argv.some(isDebug)) {
+    sourcePreprocessors = ['webpack'];
+    sourceReporters = ['progress'];
+  }
+
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -14,6 +29,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'node_modules/angular/angular.js',
+      'node_modules/angular-route/angular-route.js',
       'node_modules/angular-resource/angular-resource.js',
       'node_modules/angular-mocks/angular-mocks.js',
       'admin/admin.js',
@@ -28,6 +45,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'admin/admin.js': sourcePreprocessors,
       'admin/tests/tests.webpack.js': ['webpack']
     },
 
@@ -43,6 +61,12 @@ module.exports = function(config) {
           , {
           test: /\.html$/,
           loader: 'raw-loader'
+        }],
+
+        postLoaders: [{ //delays coverage til after tests are run, fixing transpiled source coverage error
+          test: /\.js$/,
+          loader: 'istanbul-instrumenter',
+          include: path.resolve('admin/'),
         }]
       },
 
@@ -53,7 +77,15 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: sourceReporters,
+
+    istanbulReporter: {
+      dir: 'coverage',
+      reporters: [
+        { type: 'html', subdir: '.' },
+        { type: 'text' }
+      ]
+    },
 
 
     // web server port
