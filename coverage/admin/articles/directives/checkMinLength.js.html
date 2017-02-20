@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for admin/articles/filters/capitalizeCase.js</title>
+    <title>Code coverage report for admin/articles/directives/checkMinLength.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="..\..\..\prettify.css" />
     <link rel="stylesheet" href="..\..\..\base.css" />
@@ -16,13 +16,13 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="..\..\..\index.html">All files</a> / <a href="index.html">admin/articles/filters</a> capitalizeCase.js
+      <a href="..\..\..\index.html">All files</a> / <a href="index.html">admin/articles/directives</a> checkMinLength.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">33.33% </span>
+        <span class="strong">28.57% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>2/6</span>
+        <span class='fraction'>2/7</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -32,7 +32,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/2</span>
+        <span class='fraction'>0/3</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">33.33% </span>
@@ -52,24 +52,30 @@
 7
 8
 9
-10</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+10
+11
+12</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export default () =&gt; {
-    return (input) =&gt; {
-        if (angular.isString(input)) {
-            return angular.uppercase(input[0]) + angular.lowercase(input.substring(1))
-        }
-        else {
-            return<span class="fstat-no" title="function not covered" > i</span>nput;
-<span class="cstat-no" title="statement not covered" >        }<span class="fstat-no" title="function not covered" ></span></span>
-    };<span class="cstat-no" title="statement not covered" ></span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export const minLengthValidation = () =&gt; {
+    return {
+        require: 'ngModel',
+        link: function (scope, elm, attrs, ctrl) {
+            ctrl.$validators.minLengthValidation = function (modelValue) {
+                if(modelValue === undefined)<span class="fstat-no" title="function not covered" ></span>
+<span class="cstat-no" title="statement not covered" >                    return false;</span>
+                return modelValue.length &gt;= 20;
+            };<span class="fstat-no" title="function not covered" ></span>
+        }<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
+    }<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span>
 }<span class="cstat-no" title="statement not covered" ></span></pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->

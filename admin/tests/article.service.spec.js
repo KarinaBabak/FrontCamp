@@ -11,7 +11,7 @@ describe('Article Service Tests', function ArticleServiceTests() {
     });
 
     beforeEach(inject(function ($injector, $q) {
-        articleService = $injector.get('ArticleService');
+        articleService = $injector.get('articleService');
         $httpBackend = $injector.get('$httpBackend');
 
         articles = [{
@@ -32,17 +32,23 @@ describe('Article Service Tests', function ArticleServiceTests() {
         $httpBackend.verifyNoOutstandingRequest();
     });
 
-    it('should fetch articles', function () {
+    it('should return all articles', function shouldReturnArticles() {
         let currentResult;
 
-        $httpBackend.expectGET('/admin').respond(articles);
+        $httpBackend.expectGET('/api/articles').respond(articles);
         articleService.query().$promise.then(data => {
             currentResult = data;
         });
         $httpBackend.flush();
 
-        expect(currentResult[0].id).toEqual(articles[0].id);
-        expect(currentResult[1].id).toEqual(articles[1].id);
+        expect(currentResult[0]._id).toEqual(articles[0]._id);
+        expect(currentResult[1]._id).toEqual(articles[1]._id);
         expect(currentResult.length).toEqual(2);
+    });
+
+    xit('should add new article', function shouldAddArticle() {
+        articleService.add(articles[0]);
+		$httpBackend.flush();
+		expect(articleService.add).toHaveBeenCalledWith({}, new FormData());
     });
 });

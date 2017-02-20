@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for admin/tests/article.servic.spec.js</title>
+    <title>Code coverage report for admin/tests/article.service.spec.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="..\..\prettify.css" />
     <link rel="stylesheet" href="..\..\base.css" />
@@ -16,13 +16,13 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="..\..\index.html">All files</a> / <a href="index.html">admin/tests</a> article.servic.spec.js
+      <a href="..\..\index.html">All files</a> / <a href="index.html">admin/tests</a> article.service.spec.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">62.5% </span>
+        <span class="strong">89.29% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>15/24</span>
+        <span class='fraction'>25/28</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,18 +30,18 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">83.33% </span>
+        <span class="strong">85.71% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>5/6</span>
+        <span class='fraction'>6/7</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">62.5% </span>
+        <span class="strong">89.29% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>15/24</span>
+        <span class='fraction'>25/28</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -90,7 +90,13 @@
 45
 46
 47
-48</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+48
+49
+50
+51
+52
+53
+54</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -106,9 +112,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -123,18 +129,24 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">describe('Article Service Tests', function ArticleServiceTests() {
@@ -150,12 +162,12 @@
     });
 &nbsp;
     beforeEach(inject(function ($injector, $q) {
-        articleService = $injector.get('ArticleService');
+        articleService = $injector.get('articleService');
         $httpBackend = $injector.get('$httpBackend');
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        articles = [{</span>
+        articles = [{
             _id: 1,
-<span class="cstat-no" title="statement not covered" >            title: 'Super article1',</span>
+            title: 'Super article1',
             content: 'text1'
         }, {
             _id: 2,
@@ -170,19 +182,25 @@
         $httpBackend.verifyNoOutstandingExpectation();
         $httpBackend.verifyNoOutstandingRequest();
     });
-<span class="cstat-no" title="statement not covered" ></span>
-    it('should fetch articles', function () {
+&nbsp;
+    it('should return all articles', function shouldReturnArticles() {
         let currentResult;
 &nbsp;
-        $httpBackend.expectGET('/admin').respond(articles);
+        $httpBackend.expectGET('/api/articles').respond(articles);
         articleService.query().$promise.then(data =&gt; {
             currentResult = data;
-<span class="cstat-no" title="statement not covered" >        });<span class="fstat-no" title="function not covered" ></span></span>
-        $htt<span class="cstat-no" title="statement not covered" >pBackend.flush();</span>
+        });
+        $httpBackend.flush();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        expect(currentResult[0</span>].id).toEqual(articles[0].id);
-        expect(currentResult[1].id).toEqual(articles[1].id);
-<span class="cstat-no" title="statement not covered" >        expect(currentResult.length).toEqual(2);</span>
+        expect(currentResult[0]._id).toEqual(articles[0]._id);
+        expect(currentResult[1]._id).toEqual(articles[1]._id);
+        expect(currentResult.length).toEqual(2);
+    });
+&nbsp;
+    xit('should add new article', function shouldAddArticle() {
+        articleService.add(articles[0]);
+		$httpBackend.flush();<span class="fstat-no" title="function not covered" ></span>
+		expect<span class="cstat-no" title="statement not covered" >(articleService.add).toHaveBeenCa</span>lledWith({}, new FormData());
     });<span class="cstat-no" title="statement not covered" ></span>
 });<span class="cstat-no" title="statement not covered" ></span></pre></td></tr>
 </table></pre>
@@ -190,7 +208,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Feb 21 2017 00:02:33 GMT+0300 (RTZ 2 (зима))
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Feb 21 2017 01:05:29 GMT+0300 (RTZ 2 (зима))
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

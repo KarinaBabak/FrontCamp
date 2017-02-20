@@ -6,7 +6,7 @@ export const articleAdd = () => {
         scope: {  
             article: '=',
             categories: '=',
-            saveArticle: '&'           
+            saveArticle: '&'        
         },
         template: require('./articleAdd.html'),
         controller: ArticleAddCtrl,
